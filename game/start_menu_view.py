@@ -4,10 +4,7 @@
 import random
 import arcade
 from arcade.gui import UIManager
-from data.game import game
-from data.instruction_menu import instruction_menu
-from data import constants
-import time
+from leaderboard import LeaderView
 
 music_volume = 0.5
 
@@ -249,8 +246,10 @@ class start_menu(arcade.View):
 
     def on_click_button_leaderboard_north_america(self):
         """ function called when north america's 'Leaderboard' button is clicked on"""
-        #self.ui_manager.purge_ui_elements()
-        print('north america leaderboard button pressed')
+        self.ui_manager.purge_ui_elements()
+        #print('north america leaderboard button pressed')
+        instruction = LeaderView(self)
+        self.window.show_view(instruction)
 
     def on_click_button_game_south_america(self):
         """ function called when south america's 'New Game' button is clicked on"""
@@ -302,3 +301,14 @@ class start_menu(arcade.View):
         #self.ui_manager.purge_ui_elements()
         print('europe leaderboard button pressed')   
 
+# Sources:
+# https://arcade-pk.readthedocs.io/en/latest/examples/sprite_move_animation.html
+# https://api.arcade.academy/en/2.6.3/api/gui_widgets.html?highlight=button#arcade.gui.UITextureButton
+# https://www.codegrepper.com/code-examples/python/console+log+python
+# https://realpython.com/arcade-python-game-framework/
+# https://api.arcade.academy/en/latest/gui/index.html
+# https://api.arcade.academy/en/latest/examples/gui_widgets.html#gui-widgets
+# https://api.arcade.academy/en/latest/examples/view_instructions_and_game_over.html#view-instructions-and-game-over
+# https://github.com/KnightenCooper/game
+# https://api.arcade.academy/en/latest/arcade.color.html
+# https://api.arcade.academy/en/2.6.3/api/window.html?highlight=button#arcade.View.on_mouse_press

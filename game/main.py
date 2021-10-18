@@ -3,7 +3,7 @@ import arcade
 
 
 import constants
-from start_menu import start_menu
+from start_menu_view import start_menu
 
 
 def main():
