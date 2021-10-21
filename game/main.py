@@ -10,7 +10,7 @@ def main():
     """ the main function: compiles all code and runs the program. 
     args: none.
     """
-    window = arcade.Window(constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT, constants.SCREEN_TITLE, fullscreen=True)
+    window = arcade.Window(constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT, constants.SCREEN_TITLE, fullscreen=False)
     width, height = window.get_size()
 
     window.set_viewport(0, width, 0, height)

@@ -5,6 +5,7 @@ import random
 import arcade
 from arcade.gui import UIManager
 from leaderboard import LeaderView
+from timer import Timer
 
 music_volume = 0.5
 
@@ -241,14 +242,17 @@ class start_menu(arcade.View):
 
     def on_click_button_game_north_america(self):
         """ function called when north america's 'New Game' button is clicked on"""
-        #self.ui_manager.purge_ui_elements()
-        print('north america new game button pressed')
+        self.ui_manager.purge_ui_elements()
+        # print('north america new game button pressed')
+        #Calls timer class view will need to get altered a little bit for the final game
+        game = Timer(self) 
+        self.window.show_view(game)
 
     def on_click_button_leaderboard_north_america(self):
         """ function called when north america's 'Leaderboard' button is clicked on"""
         self.ui_manager.purge_ui_elements()
         #print('north america leaderboard button pressed')
-        instruction = LeaderView(self)
+        instruction = LeaderView(self) 
         self.window.show_view(instruction)
 
     def on_click_button_game_south_america(self):
