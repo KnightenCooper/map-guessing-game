@@ -19,4 +19,5 @@ def main():
     window.show_view(start_view)
     arcade.run()
 
+
 main()
