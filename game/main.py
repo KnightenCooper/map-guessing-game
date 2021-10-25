@@ -3,7 +3,8 @@ import arcade
 
 
 import constants
-from start_menu_view import start_menu
+# from start_menu_view import start_menu
+from guess_logic_demo import GuessLogic
 
 
 def main():
@@ -15,7 +16,7 @@ def main():
 
     window.set_viewport(0, width, 0, height)
 
-    start_view = start_menu()
+    start_view = GuessLogic()
     window.show_view(start_view)
     arcade.run()
 
