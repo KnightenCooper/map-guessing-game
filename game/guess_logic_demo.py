@@ -1,130 +1,141 @@
-""" COMMENT GOES HERE"""
-
-
-import random
+"""
+Solitaire clone.
+"""
 import arcade
-from arcade.gui import UIManager
-from leaderboard import LeaderView
-from timer import Timer
+from pathlib import Path
 
-music_volume = 0.5
 
-class GuessLogic(arcade.View):
-    """ The first menu the user sees that allows them to choose which of the six continent games they want to play 
-    or view that continent's leaderboard"""
+# Screen title and size
+SCREEN_WIDTH = 1024
+SCREEN_HEIGHT = 500
+SCREEN_TITLE = "Country DEMO"
+# Constants for sizing
+COUNTRY_SCALE = 0.6
+
+# How big are the countries?
+COUNTRY_WIDTH = 140 * COUNTRY_SCALE
+COUNTRY_HEIGHT = 190 * COUNTRY_SCALE
+
+# How big is the mat we'll place the country on?
+MAT_PERCENT_OVERSIZE = 1.25
+MAT_HEIGHT = int(COUNTRY_HEIGHT * MAT_PERCENT_OVERSIZE)
+MAT_WIDTH = int(COUNTRY_WIDTH * MAT_PERCENT_OVERSIZE)
+
+# How much space do we leave as a gap between the mats?
+# Done as a percent of the mat size.
+VERTICAL_MARGIN_PERCENT = 0.10
+HORIZONTAL_MARGIN_PERCENT = 0.10
+
+# The Y of the bottom row (2 piles)
+BOTTOM_Y = MAT_HEIGHT / 2 + MAT_HEIGHT * VERTICAL_MARGIN_PERCENT
+
+# The X of where to start putting things on the left side
+START_X = MAT_WIDTH / 2 + MAT_WIDTH * HORIZONTAL_MARGIN_PERCENT
+
+# Country constant values
+COUNTRY_VALUES = ["mexico", "canada", "usa"]
+POSITIONX = [START_X, START_X * 3, START_X * 5]
+POSITIONY = [BOTTOM_Y, BOTTOM_Y, BOTTOM_Y]
+
+
+class Country(arcade.Sprite):
+    """ Country sprite """
+
+    def __init__(self, country_name, scale=1):
+        """ Country constructor """
+
+        # This country_name will represent the country and be its name, This is important when we determine if the user clicked the right country
+        self.country_name = country_name
+        # The below line of code uses the country's name to automatically get the correct icon for Demo.
+        self.image_file_name = str(Path(__file__).parent.resolve()) + f"\\assets\\knighten_testing\{self.country_name}.png"
+
+        # Call the parent
+        super().__init__(self.image_file_name, scale, hit_box_algorithm="None")
+
+
+class MyGame(arcade.Window):
+    """ Main application class. """
 
     def __init__(self):
-        """ initialized self""" 
-        super().__init__()
+        super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
 
-        self.ui_manager = UIManager()
-        self.view = None
+        # Sprite list with all the countries
+        self.country_list = None
+        # make the background black
+        arcade.set_background_color(arcade.color.WARM_BLACK)
 
+
+    def setup(self):
+        """ Set up the game here. Call this function to restart the game. """
+
+        # Sprite list with all the countries
+        self.country_list = arcade.SpriteList()
+
+        # Create every country icon by looping through the list, n is used to also loop through each countries' icons location by getting the 
+        # x value from the list POSITIONX and the y value from the list POSITIONY
+        n = 0
+        for country_value in COUNTRY_VALUES:
+            country = Country(country_value, COUNTRY_SCALE)
+            country.position = POSITIONX[n], POSITIONY[n]
+            self.country_list.append(country)
+            n = n + 1
 
 
     def on_draw(self):
-        """ Adds the text to the menu. The text is the name of each continent and is to the left of each set of buttons"""
+        """ Render the screen. """
+        # Clear the screen
         arcade.start_render()
-        self.ui_manager.on_draw()
-        arcade.draw_text("Canada:",
-                        self.window.width * 0.5,
-                        self.window.height*.45-20,
-                        arcade.color.BLACK,
-                        font_size=30,
-                        anchor_x="center")
+        # add text to tell user to click greatest country
+        arcade.draw_text("Click the Greatest Country of All Time:",
+                         start_y = 300,
+                         start_x = 300,
+                         color = arcade.color.WHITE_SMOKE,
+                         font_size=30,
+                         anchor_x="center")
+        # Draw the countries
+        self.country_list.draw()
+
+    def on_mouse_press(self, x, y, button, key_modifiers):
+        """ Called when the user presses a mouse button. """
+
+        # Get list of countries we've clicked on
+        countries = arcade.get_sprites_at_point((x, y), self.country_list)
+
+        # Have we clicked on a country?
+        if len(countries) > 0:
+            # print the name of the country clicked
+            print('You clicked ' + countries[0].country_name)
+
+            """ Eventually the program will need to check if the country has already been correctly guessed and if so know to NOT add red 
+            and keep the icon green because the user got that country correct """
 
 
-    def on_show_view(self):
-        """ makes the background white"""
-        self.setup()
-        arcade.set_background_color(arcade.color.WHITE)
+            # add a variable to store the correct answer, in the final version this is be determined by getting country names from a list
+            correct_answer = 'usa'
+            # if the country clicked is the correct answer then make the icon green
+            if countries[0].country_name == correct_answer:
+                right = arcade.Sprite(str(Path(__file__).parent.resolve()) +"\\assets\knighten_testing\\right.png", COUNTRY_SCALE)
+                right.position = countries[0].position
+                self.country_list.append(right)
 
-    def setup(self):
-        """ creates all 3 demo buttons"""
-        self.ui_manager.purge_ui_elements()
-
-        # creates the textures for the buttons so they're interactive
-        button_normal = arcade.load_texture(
-            ':resources:gui_basic_assets/red_button_normal.png')
-        hovered_texture = arcade.load_texture(
-            ':resources:gui_basic_assets/red_button_hover.png')
-        pressed_texture = arcade.load_texture(
-            ':resources:gui_basic_assets/red_button_press.png')
-
-        # creates the North America buttons.
-        self.button_game_north_america = arcade.gui.UIImageButton(
-            center_x = self.window.width * 0.5,
-            center_y = self.window.height*.9,
-            normal_texture = button_normal,
-            hover_texture = hovered_texture,
-            press_texture = pressed_texture,
-            text = 'Canada Button'
-        )
-        self.ui_manager.add_ui_element(self.button_game_north_america)
-        # when clicked this button calls the 'on_click_button_game_north_america' function
-        self.button_game_north_america.on_click = self.on_click_button_canada
+            # if it is the wrong guess then we make the icon red
+            else:
+                wrong = arcade.Sprite(str(Path(__file__).parent.resolve()) +"\\assets\knighten_testing\\wrong.png", COUNTRY_SCALE)
+                wrong.position = countries[0].position
+                self.country_list.append(wrong)
 
 
-        self.on_button_leaderboard_north_america = arcade.gui.UIImageButton(
-            center_x = self.window.width * 0.5,
-            center_y = self.window.height*.75,
-            normal_texture = button_normal,
-            hover_texture = hovered_texture,
-            press_texture = pressed_texture,
-            text = 'USA Button'
-        )
-        self.ui_manager.add_ui_element(self.on_button_leaderboard_north_america)
-        # when clicked this button calls the 'on_click_button_leaderboard_north_america' function
-        self.on_button_leaderboard_north_america.on_click = self.on_click_button_usa
+
+          
+def main():
+    """ Main function """
+    window = MyGame()
+    window.setup()
+    arcade.run()
 
 
-        # creates the South America buttons.
-        self.button_game_south_america = arcade.gui.UIImageButton(
-            center_x = self.window.width * 0.5,
-            center_y = self.window.height*.6,
-            normal_texture = button_normal,
-            hover_texture = hovered_texture,
-            press_texture = pressed_texture,
-            text = 'Mexico Button'
-        )
-        self.ui_manager.add_ui_element(self.button_game_south_america)
-        # when clicked this button calls the 'on_click_button_game_south_america' function
-        self.button_game_south_america.on_click = self.on_click_button_mexico
+if __name__ == "__main__":
+    main()
 
-
- 
-
-
-    def on_click_button_canada(self):
-        """ function called when north america's 'New Game' button is clicked on"""
-        self.ui_manager.purge_ui_elements()
-        # print('north america new game button pressed')
-        #Calls timer class view will need to get altered a little bit for the final game
-        game = Timer(self) 
-        self.window.show_view(game)
-
-    def on_click_button_usa(self):
-        """ function called when north america's 'Leaderboard' button is clicked on"""
-        # self.ui_manager.purge_ui_elements()
-        print('usa leaderboard button pressed')
-        # instruction = LeaderView(self) 
-        # self.window.show_view(instruction)
-
-    def on_click_button_mexico(self):
-        """ function called when south america's 'New Game' button is clicked on"""
-        #self.ui_manager.purge_ui_elements()
-        print('mexico new game button pressed')
-
- 
-
-# Sources:
-# https://arcade-pk.readthedocs.io/en/latest/examples/sprite_move_animation.html
-# https://api.arcade.academy/en/2.6.3/api/gui_widgets.html?highlight=button#arcade.gui.UITextureButton
-# https://www.codegrepper.com/code-examples/python/console+log+python
-# https://realpython.com/arcade-python-game-framework/
-# https://api.arcade.academy/en/latest/gui/index.html
-# https://api.arcade.academy/en/latest/examples/gui_widgets.html#gui-widgets
-# https://api.arcade.academy/en/latest/examples/view_instructions_and_game_over.html#view-instructions-and-game-over
-# https://github.com/KnightenCooper/game
-# https://api.arcade.academy/en/latest/arcade.color.html
-# https://api.arcade.academy/en/2.6.3/api/window.html?highlight=button#arcade.View.on_mouse_press
+# Source: 
+# https://api.arcade.academy/en/latest/tutorials/card_game/index.html
