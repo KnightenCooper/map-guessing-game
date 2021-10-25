@@ -1,5 +1,5 @@
 """
-Solitaire clone.
+DEMO of guess logic
 """
 import arcade
 from pathlib import Path
