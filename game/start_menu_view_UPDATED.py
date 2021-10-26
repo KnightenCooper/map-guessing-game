@@ -8,22 +8,22 @@ from leaderboard import LeaderView
 from timer import Timer
 
 
-# Country constant values
-COUNTRY_VALUES = ["north_america_game", "north_america_leaderboard", "south_america_game", "south_america_leaderboard"]
+# button constant values
+BUTTON_VALUES = ["north_america_game", "north_america_leaderboard", "south_america_game", "south_america_leaderboard"]
 POSITIONX = [SCREEN_WIDTH * 0.75, SCREEN_WIDTH * 0.75 + 190, SCREEN_WIDTH * 0.75, SCREEN_WIDTH * 0.75 + 190]
 POSITIONY = [SCREEN_HEIGHT * .9, SCREEN_HEIGHT * .9, SCREEN_HEIGHT * .75, SCREEN_HEIGHT * .75]
 
 
 class Button(arcade.Sprite):
-    """ Country sprite """
+    """ button sprite """
 
-    def __init__(self, country_name, scale=1):
-        """ Country constructor """
+    def __init__(self, button_name, scale=1):
+        """ button constructor """
 
-        # This country_name will represent the country and be its name, This is important when we determine if the user clicked the right country
-        self.country_name = country_name
-        # The below line of code uses the country's name to automatically get the correct icon for Demo.
-        #self.image_file_name = str(Path(__file__).parent.resolve()) + f"\\assets\\button\{self.country_name}.png"
+        # This button_name will represent the button and be its name, This is important when we determine if the user clicked the right button
+        self.button_name = button_name
+        # The below line of code uses the button's name to automatically get the correct icon for Demo.
+        #self.image_file_name = str(Path(__file__).parent.resolve()) + f"\\assets\\button\{self.button_name}.png"
         self.image_file_name = str(Path(__file__).parent.resolve()) + f"\\assets\\button\\button.png"
 
         # Call the parent
@@ -36,8 +36,8 @@ class MyGame(arcade.Window):
     def __init__(self):
         super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
 
-        # Sprite list with all the countries
-        self.country_list = None
+        # Sprite list with all the buttons
+        self.button_list = None
         # make the background WHITE_SMOKE
         arcade.set_background_color(arcade.color.WARM_BLACK)
 
@@ -45,16 +45,16 @@ class MyGame(arcade.Window):
     def setup(self):
         """ Set up the game here. Call this function to restart the game. """
 
-        # Sprite list with all the countries
-        self.country_list = arcade.SpriteList()
+        # Sprite list with all the buttons
+        self.button_list = arcade.SpriteList()
 
-        # Create every country icon by looping through the list, n is used to also loop through each countries' icons location by getting the 
+        # Create every button icon by looping through the list, n is used to also loop through each buttons' icons location by getting the 
         # x value from the list POSITIONX and the y value from the list POSITIONY
         n = 0
-        for country_value in COUNTRY_VALUES:
-            country = Button(country_value)
-            country.position = POSITIONX[n], POSITIONY[n]
-            self.country_list.append(country)
+        for button_value in BUTTON_VALUES:
+            button = Button(button_value)
+            button.position = POSITIONX[n], POSITIONY[n]
+            self.button_list.append(button)
             n = n + 1
 
 
@@ -63,8 +63,8 @@ class MyGame(arcade.Window):
         # Clear the screen
         arcade.start_render()
 
-        # Draw the countries
-        self.country_list.draw()
+        # Draw the buttons
+        self.button_list.draw()
 
         arcade.draw_text("North America:",
                          SCREEN_WIDTH * 0.75 -230,
@@ -108,25 +108,25 @@ class MyGame(arcade.Window):
     def on_mouse_press(self, x, y, button, key_modifiers):
         """ Called when the user presses a mouse button. """
 
-        # Get list of countries we've clicked on
-        countries = arcade.get_sprites_at_point((x, y), self.country_list)
+        # Get list of buttons we've clicked on
+        buttons = arcade.get_sprites_at_point((x, y), self.button_list)
 
-        # Have we clicked on a country?
-        if len(countries) > 0:
-            # print the name of the country clicked
+        # Have we clicked on a button?
+        if len(buttons) > 0:
+            # print the name of the button clicked
 
-            """ Eventually the program will need to check if the country has already been correctly guessed and if so know to NOT add red 
-            and keep the icon green because the user got that country correct """
+            """ Eventually the program will need to check if the button has already been correctly guessed and if so know to NOT add red 
+            and keep the icon green because the user got that button correct """
 
 
-            # add a variable to store the correct answer, in the final version this is be determined by getting country names from a list
+            # add a variable to store the correct answer, in the final version this is be determined by getting button names from a list
             correct_answer = 'usa'
-            # if the country clicked is the correct answer then make the icon green
-            if countries[0].country_name == 'north_america':
-                print('You clicked ' + countries[0].country_name)
+            # if the button clicked is the correct answer then make the icon green
+            if buttons[0].button_name == 'north_america':
+                print('You clicked ' + buttons[0].button_name)
             # if it is the wrong guess then we make the icon red
             else:
-                print('You clicked ' + countries[0].country_name)
+                print('You clicked ' + buttons[0].button_name)
 
 
 
