@@ -67,7 +67,7 @@ class MyGame(arcade.Window):
 
     def setup(self):
         """ Set up the game here. Call this function to restart the game. """
-
+        
         # Sprite list with all the countries
         self.country_list = arcade.SpriteList()
 
@@ -84,14 +84,14 @@ class MyGame(arcade.Window):
     def on_draw(self):
         """ Render the screen. """
         # Clear the screen
-        arcade.start_render()
+        # arcade.start_render()
         # add text to tell user to click greatest country
-        arcade.draw_text("Click the Greatest Country of All Time:",
-                         start_y = 300,
-                         start_x = 500,
-                         color = arcade.color.WHITE_SMOKE,
-                         font_size=30,
-                         anchor_x="center")
+        # arcade.draw_text("Click the Greatest Country of All Time:",
+        #                  start_y = 300,
+        #                  start_x = 500,
+        #                  color = arcade.color.WHITE_SMOKE,
+        #                  font_size=30,
+        #                  anchor_x="center")
         # Draw the countries
         self.country_list.draw()
 

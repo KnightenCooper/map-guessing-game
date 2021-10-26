@@ -4,6 +4,7 @@ from pathlib import Path
 from arcade.gui import UIManager
 from constants import SCREEN_HEIGHT, SCREEN_WIDTH
 from leaderboard import LeaderView
+from guess_logic import MyGame
 
 music_volume = 0.5
 
@@ -33,13 +34,13 @@ class NA_Game(arcade.View):
         self.background_sprite = arcade.Sprite(self.background_img_path, scale=1, center_x=640, center_y=360)
         self.background_list.append(self.background_sprite)
 
-
+        #Create Buttons for user to click one for each country
+        MyGame.setup(self)
 
     def on_draw(self):
         """
         Render the screen.
         """
-
         # This command has to happen before we start drawing
         arcade.start_render()
 
@@ -51,6 +52,39 @@ class NA_Game(arcade.View):
 
         # Render the text
         arcade.draw_text("North America", 10, 20, arcade.color.BLACK, 14)
+
+        #create buttons
+        MyGame.on_draw(self)
+
+    # Add on_mouse_press from guess_logic.py file
+    def on_mouse_press(self, x, y, button, key_modifiers):
+        """ Called when the user presses a mouse button. """
+
+        # Get list of countries we've clicked on
+        countries = arcade.get_sprites_at_point((x, y), self.country_list)
+
+        # Have we clicked on a country?
+        if len(countries) > 0:
+            # print the name of the country clicked
+            print('You clicked ' + countries[0].country_name)
+
+            """ Eventually the program will need to check if the country has already been correctly guessed and if so know to NOT add red 
+            and keep the icon green because the user got that country correct """
+
+
+            # add a variable to store the correct answer, in the final version this is be determined by getting country names from a list
+            correct_answer = 'usa'
+            # if the country clicked is the correct answer then make the icon green
+            if countries[0].country_name == correct_answer:
+                right = arcade.Sprite(str(Path(__file__).parent.resolve()) +"\\assets\knighten_testing\\right.png")
+                right.position = countries[0].position
+                self.country_list.append(right)
+
+            # if it is the wrong guess then we make the icon red
+            else:
+                wrong = arcade.Sprite(str(Path(__file__).parent.resolve()) +"\\assets\knighten_testing\\wrong.png")
+                wrong.position = countries[0].position
+                self.country_list.append(wrong)
 
 
 # Sources:
