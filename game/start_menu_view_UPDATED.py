@@ -113,11 +113,17 @@ class StartMenu(arcade.View):
 
         # Have we clicked on a button?
         if len(buttons) > 0:
+            if buttons[0].button_name == 'north_america_game':
+                print('You clicked ' + buttons[0].button_name)
+                game = Timer(self) 
+                self.window.show_view(game)
 
             if buttons[0].button_name == 'north_america_leaderboard':
                 print('You clicked ' + buttons[0].button_name)
+                leader_view = LeaderView()
+                self.window.show_view(leader_view)
 
- 
+         
             else:
                 print('You clicked ' + buttons[0].button_name)
 
