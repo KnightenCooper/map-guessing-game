@@ -9,9 +9,9 @@ from timer import Timer
 
 
 # Country constant values
-COUNTRY_VALUES = ["north_america"]
-POSITIONX = [SCREEN_WIDTH * 0.75]
-POSITIONY = [SCREEN_HEIGHT * .9]
+COUNTRY_VALUES = ["north_america_game", "north_america_leaderboard", "south_america_game", "south_america_leaderboard"]
+POSITIONX = [SCREEN_WIDTH * 0.75, SCREEN_WIDTH * 0.75 + 190, SCREEN_WIDTH * 0.75, SCREEN_WIDTH * 0.75 + 190]
+POSITIONY = [SCREEN_HEIGHT * .9, SCREEN_HEIGHT * .9, SCREEN_HEIGHT * .75, SCREEN_HEIGHT * .75]
 
 
 class Button(arcade.Sprite):
