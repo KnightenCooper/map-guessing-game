@@ -30,14 +30,14 @@ class Button(arcade.Sprite):
         super().__init__(self.image_file_name, scale=1, hit_box_algorithm="None")
 
 
-class MyGame(arcade.Window):
+class StartMenu(arcade.View):
     """ Main application class. """
 
     def __init__(self):
-        super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
+        super().__init__()
 
         # Sprite list with all the buttons
-        self.button_list = None
+        self.button_sprite_list = None
         # make the background WHITE_SMOKE
         arcade.set_background_color(arcade.color.WARM_BLACK)
 
@@ -46,7 +46,7 @@ class MyGame(arcade.Window):
         """ Set up the game here. Call this function to restart the game. """
 
         # Sprite list with all the buttons
-        self.button_list = arcade.SpriteList()
+        self.button_sprite_list = arcade.SpriteList()
 
         # Create every button icon by looping through the list, n is used to also loop through each buttons' icons location by getting the 
         # x value from the list POSITIONX and the y value from the list POSITIONY
@@ -54,7 +54,7 @@ class MyGame(arcade.Window):
         for button_value in BUTTON_VALUES:
             button = Button(button_value)
             button.position = POSITIONX[n], POSITIONY[n]
-            self.button_list.append(button)
+            self.button_sprite_list.append(button)
             n = n + 1
 
 
@@ -64,7 +64,7 @@ class MyGame(arcade.Window):
         arcade.start_render()
 
         # Draw the buttons
-        self.button_list.draw()
+        self.button_sprite_list.draw()
 
         arcade.draw_text("North America:",
                          SCREEN_WIDTH * 0.75 -230,
@@ -109,37 +109,30 @@ class MyGame(arcade.Window):
         """ Called when the user presses a mouse button. """
 
         # Get list of buttons we've clicked on
-        buttons = arcade.get_sprites_at_point((x, y), self.button_list)
+        buttons = arcade.get_sprites_at_point((x, y), self.button_sprite_list)
 
         # Have we clicked on a button?
         if len(buttons) > 0:
-            # print the name of the button clicked
 
-            """ Eventually the program will need to check if the button has already been correctly guessed and if so know to NOT add red 
-            and keep the icon green because the user got that button correct """
-
-
-            # add a variable to store the correct answer, in the final version this is be determined by getting button names from a list
-            correct_answer = 'usa'
-            # if the button clicked is the correct answer then make the icon green
-            if buttons[0].button_name == 'north_america':
+            if buttons[0].button_name == 'north_america_leaderboard':
                 print('You clicked ' + buttons[0].button_name)
-            # if it is the wrong guess then we make the icon red
+
+ 
             else:
                 print('You clicked ' + buttons[0].button_name)
 
 
 
           
-def main():
-    """ Main function """
-    window = MyGame()
-    window.setup()
-    arcade.run()
+# def main():
+#     """ Main function """
+#     window = MyGame()
+#     window.setup()
+#     arcade.run()
 
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
 
 # Source: 
 # https://api.arcade.academy/en/latest/tutorials/card_game/index.html
