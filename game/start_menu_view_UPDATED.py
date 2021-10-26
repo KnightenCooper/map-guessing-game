@@ -1,5 +1,5 @@
 """
-DEMO of guess logic
+Updated start_menu
 """
 import arcade
 from pathlib import Path
@@ -10,11 +10,11 @@ from timer import Timer
 
 # Country constant values
 COUNTRY_VALUES = ["north_america"]
-POSITIONX = [710]
-POSITIONY = [310]
+POSITIONX = [SCREEN_WIDTH * 0.75]
+POSITIONY = [SCREEN_HEIGHT * .9]
 
 
-class Country(arcade.Sprite):
+class Button(arcade.Sprite):
     """ Country sprite """
 
     def __init__(self, country_name, scale=1):
@@ -38,7 +38,7 @@ class MyGame(arcade.Window):
 
         # Sprite list with all the countries
         self.country_list = None
-        # make the background black
+        # make the background WHITE_SMOKE
         arcade.set_background_color(arcade.color.WARM_BLACK)
 
 
@@ -52,7 +52,7 @@ class MyGame(arcade.Window):
         # x value from the list POSITIONX and the y value from the list POSITIONY
         n = 0
         for country_value in COUNTRY_VALUES:
-            country = Country(country_value)
+            country = Button(country_value)
             country.position = POSITIONX[n], POSITIONY[n]
             self.country_list.append(country)
             n = n + 1
@@ -62,15 +62,48 @@ class MyGame(arcade.Window):
         """ Render the screen. """
         # Clear the screen
         arcade.start_render()
-        # add text to tell user to click greatest country
-        arcade.draw_text("North America:",
-                         start_y = 300,
-                         start_x = 500,
-                         color = arcade.color.WHITE_SMOKE,
-                         font_size=30,
-                         anchor_x="center")
+
         # Draw the countries
         self.country_list.draw()
+
+        arcade.draw_text("North America:",
+                         SCREEN_WIDTH * 0.75 -230,
+                         SCREEN_HEIGHT *.9 -20,
+                         arcade.color.WHITE_SMOKE,
+                         font_size=30,
+                         anchor_x="center")
+        arcade.draw_text("South America:",
+                         SCREEN_WIDTH * 0.75 -230,
+                         SCREEN_HEIGHT *.75-20,
+                         arcade.color.WHITE_SMOKE,
+                         font_size=30,
+                         anchor_x="center")
+        arcade.draw_text("Australia:",
+                         SCREEN_WIDTH * 0.75 -230,
+                         SCREEN_HEIGHT  *.6 -20,
+                         arcade.color.WHITE_SMOKE,
+                         font_size=30,
+                         anchor_x="center")
+        arcade.draw_text("Asia:",
+                         SCREEN_WIDTH * 0.75 -230,
+                         SCREEN_HEIGHT *.45-20,
+                         arcade.color.WHITE_SMOKE,
+                         font_size=30,
+                         anchor_x="center")
+        arcade.draw_text("Africa:",
+                         SCREEN_WIDTH * 0.75 -230,
+                         SCREEN_HEIGHT *.3-20,
+                         arcade.color.WHITE_SMOKE,
+                         font_size=30,
+                         anchor_x="center")
+        arcade.draw_text("Europe:",
+                         SCREEN_WIDTH * 0.75 -230,
+                         SCREEN_HEIGHT *.15-20,
+                         arcade.color.WHITE_SMOKE,
+                         font_size=30,
+                         anchor_x="center")
+
+
 
     def on_mouse_press(self, x, y, button, key_modifiers):
         """ Called when the user presses a mouse button. """
