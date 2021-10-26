@@ -3,41 +3,15 @@ DEMO of guess logic
 """
 import arcade
 from pathlib import Path
+from constants import SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_TITLE
 from leaderboard import LeaderView
 from timer import Timer
 
 
-# Screen title and size
-SCREEN_WIDTH = 1024
-SCREEN_HEIGHT = 500
-SCREEN_TITLE = "Country DEMO"
-# Constants for sizing
-COUNTRY_SCALE = 0.6
-
-# How big are the countries?
-COUNTRY_WIDTH = 140 * COUNTRY_SCALE
-COUNTRY_HEIGHT = 190 * COUNTRY_SCALE
-
-# How big is the mat we'll place the country on?
-MAT_PERCENT_OVERSIZE = 1.25
-MAT_HEIGHT = int(COUNTRY_HEIGHT * MAT_PERCENT_OVERSIZE)
-MAT_WIDTH = int(COUNTRY_WIDTH * MAT_PERCENT_OVERSIZE)
-
-# How much space do we leave as a gap between the mats?
-# Done as a percent of the mat size.
-VERTICAL_MARGIN_PERCENT = 0.10
-HORIZONTAL_MARGIN_PERCENT = 0.10
-
-# The Y of the bottom row (2 piles)
-BOTTOM_Y = MAT_HEIGHT / 2 + MAT_HEIGHT * VERTICAL_MARGIN_PERCENT
-
-# The X of where to start putting things on the left side
-START_X = MAT_WIDTH / 2 + MAT_WIDTH * HORIZONTAL_MARGIN_PERCENT
-
 # Country constant values
-COUNTRY_VALUES = ["north_america", "south_america", "africa"]
-POSITIONX = [690, START_X * 3, START_X * 5]
-POSITIONY = [310, BOTTOM_Y, BOTTOM_Y]
+COUNTRY_VALUES = ["north_america"]
+POSITIONX = [710]
+POSITIONY = [310]
 
 
 class Country(arcade.Sprite):
@@ -53,7 +27,7 @@ class Country(arcade.Sprite):
         self.image_file_name = str(Path(__file__).parent.resolve()) + f"\\assets\\button\\button.png"
 
         # Call the parent
-        super().__init__(self.image_file_name, scale, hit_box_algorithm="None")
+        super().__init__(self.image_file_name, scale=1, hit_box_algorithm="None")
 
 
 class MyGame(arcade.Window):
@@ -78,7 +52,7 @@ class MyGame(arcade.Window):
         # x value from the list POSITIONX and the y value from the list POSITIONY
         n = 0
         for country_value in COUNTRY_VALUES:
-            country = Country(country_value, COUNTRY_SCALE)
+            country = Country(country_value)
             country.position = POSITIONX[n], POSITIONY[n]
             self.country_list.append(country)
             n = n + 1
