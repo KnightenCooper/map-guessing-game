@@ -15,24 +15,42 @@ class NA_Game(arcade.View):
     def __init__(self):
         super().__init__()
 
+        # list of countries         1             2         3        4       5            6                   7          8           9    
+        self.NA_countries = ["United States", "Canada", "Mexico", "Cuba", "Haiti", "Dominican Republic", "Jamaica", "Guatemala", "Belize", 
+        "El Salvador", "Honduras", "Nicaragua", "Costa Rica", "Panama"]
+        #    10            11          12            13          14
+
+        # 14 total countries        1    2    3    4      5     6     7    8     9    10   11    12    13    14
+        self.square_positions_x = [930, 870, 910, 1125, 1175, 1220, 1190, 890, 1070, 940, 1100, 1130, 1020, 1200]
+        self.square_positions_y = [290, 460, 150, 215, 220, 205, 110, 70, 130, 35, 110, 90, 30, 60]
+        #                           1    2    3    4    5    6    7    8    9  10   11  12  13  14
+
         # Lists that keep track of each sprite in it
-        # self.square_list = None
+        self.square_list = None
         self.background_list = None
 
         # separate background image sprite
         self.background_sprite = None
+        self.black_square = None
 
         arcade.set_background_color(arcade.color.CADET_GREY)
 
     def setup(self):
         # self.background = arcade.load_texture("assets/NA-template.png")
         self.background_img_path = str(Path(__file__).parent.resolve()) + f"\\assets\\NA-template.png"
+        self.square_img_path = str(Path(__file__).parent.resolve()) + f"\\assets\\black-square.png"
 
-        # self.square_list = arcade.SpriteList()
+        self.square_list = arcade.SpriteList()
         self.background_list = arcade.SpriteList()
 
         self.background_sprite = arcade.Sprite(self.background_img_path, scale=1, center_x=640, center_y=360)
         self.background_list.append(self.background_sprite)
+
+        n = 0
+        for country in self.NA_countries:
+            self.black_square = arcade.Sprite(self.square_img_path, scale=1, center_x=self.square_positions_x[n], center_y=self.square_positions_y[n])
+            self.square_list.append(self.black_square)
+            n = n + 1
 
         #Create Buttons for user to click one for each country
         MyGame.setup(self)
@@ -44,14 +62,13 @@ class NA_Game(arcade.View):
         # This command has to happen before we start drawing
         arcade.start_render()
 
-        # Draw the background texture
-
-        """ this will be implemented later """
-        # self.square_list.draw()
+        # draws the background map
         self.background_list.draw()
+        # draws each square
+        self.square_list.draw()
 
         # Render the text
-        arcade.draw_text("North America", 10, 20, arcade.color.BLACK, 14)
+        arcade.draw_text("North America", 10, 670, arcade.color.BLACK, 40)
 
         #create buttons
         MyGame.on_draw(self)
