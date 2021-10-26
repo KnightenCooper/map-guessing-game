@@ -3,6 +3,8 @@ DEMO of guess logic
 """
 import arcade
 from pathlib import Path
+from leaderboard import LeaderView
+from timer import Timer
 
 
 # Screen title and size
@@ -33,9 +35,9 @@ BOTTOM_Y = MAT_HEIGHT / 2 + MAT_HEIGHT * VERTICAL_MARGIN_PERCENT
 START_X = MAT_WIDTH / 2 + MAT_WIDTH * HORIZONTAL_MARGIN_PERCENT
 
 # Country constant values
-COUNTRY_VALUES = ["mexico", "canada", "usa"]
-POSITIONX = [START_X, START_X * 3, START_X * 5]
-POSITIONY = [BOTTOM_Y, BOTTOM_Y, BOTTOM_Y]
+COUNTRY_VALUES = ["north_america", "south_america", "africa"]
+POSITIONX = [690, START_X * 3, START_X * 5]
+POSITIONY = [310, BOTTOM_Y, BOTTOM_Y]
 
 
 class Country(arcade.Sprite):
@@ -47,7 +49,8 @@ class Country(arcade.Sprite):
         # This country_name will represent the country and be its name, This is important when we determine if the user clicked the right country
         self.country_name = country_name
         # The below line of code uses the country's name to automatically get the correct icon for Demo.
-        self.image_file_name = str(Path(__file__).parent.resolve()) + f"\\assets\\knighten_testing\{self.country_name}.png"
+        #self.image_file_name = str(Path(__file__).parent.resolve()) + f"\\assets\\button\{self.country_name}.png"
+        self.image_file_name = str(Path(__file__).parent.resolve()) + f"\\assets\\button\\button.png"
 
         # Call the parent
         super().__init__(self.image_file_name, scale, hit_box_algorithm="None")
@@ -86,7 +89,7 @@ class MyGame(arcade.Window):
         # Clear the screen
         arcade.start_render()
         # add text to tell user to click greatest country
-        arcade.draw_text("Click the Greatest Country of All Time:",
+        arcade.draw_text("North America:",
                          start_y = 300,
                          start_x = 500,
                          color = arcade.color.WHITE_SMOKE,
@@ -104,7 +107,6 @@ class MyGame(arcade.Window):
         # Have we clicked on a country?
         if len(countries) > 0:
             # print the name of the country clicked
-            print('You clicked ' + countries[0].country_name)
 
             """ Eventually the program will need to check if the country has already been correctly guessed and if so know to NOT add red 
             and keep the icon green because the user got that country correct """
@@ -113,16 +115,11 @@ class MyGame(arcade.Window):
             # add a variable to store the correct answer, in the final version this is be determined by getting country names from a list
             correct_answer = 'usa'
             # if the country clicked is the correct answer then make the icon green
-            if countries[0].country_name == correct_answer:
-                right = arcade.Sprite(str(Path(__file__).parent.resolve()) +"\\assets\knighten_testing\\right.png", COUNTRY_SCALE)
-                right.position = countries[0].position
-                self.country_list.append(right)
-
+            if countries[0].country_name == 'north_america':
+                print('You clicked ' + countries[0].country_name)
             # if it is the wrong guess then we make the icon red
             else:
-                wrong = arcade.Sprite(str(Path(__file__).parent.resolve()) +"\\assets\knighten_testing\\wrong.png", COUNTRY_SCALE)
-                wrong.position = countries[0].position
-                self.country_list.append(wrong)
+                print('You clicked ' + countries[0].country_name)
 
 
 

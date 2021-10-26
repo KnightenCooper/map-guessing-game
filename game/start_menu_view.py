@@ -3,7 +3,7 @@
 
 import random
 import arcade
-from arcade.gui import UIManager
+import arcade.gui
 from leaderboard import LeaderView
 from timer import Timer
 
@@ -17,7 +17,7 @@ class start_menu(arcade.View):
         """ initialized self""" 
         super().__init__()
 
-        self.ui_manager = UIManager()
+        self.ui_manager = arcade.gui.UIManager()
         self.view = None
 
 
@@ -73,7 +73,7 @@ class start_menu(arcade.View):
     def setup(self):
         """ creates all 12 buttons. Each continent gets 2 buttons. One button for 'New Game' and one for 'Leaderboard'
         The new game button will start that continents game and the leaderboard button will take the user to that continent's leaderboard system."""
-        self.ui_manager.purge_ui_elements()
+        # self.ui_manager.purge_ui_elements()
 
         # creates the textures for the buttons so they're interactive
         button_normal = arcade.load_texture(
@@ -84,7 +84,7 @@ class start_menu(arcade.View):
             ':resources:gui_basic_assets/red_button_press.png')
 
         # creates the North America buttons.
-        self.button_game_north_america = arcade.gui.UIImageButton(
+        self.button_game_north_america = arcade.gui.UITextureButton(
             center_x = self.window.width * 0.75,
             center_y = self.window.height*.9,
             normal_texture = button_normal,
@@ -97,7 +97,7 @@ class start_menu(arcade.View):
         self.button_game_north_america.on_click = self.on_click_button_game_north_america
 
 
-        self.on_button_leaderboard_north_america = arcade.gui.UIImageButton(
+        self.on_button_leaderboard_north_america = arcade.gui.UITextureButton(
             center_x = self.window.width * 0.75 + 190,
             center_y = self.window.height*.9,
             normal_texture = button_normal,
@@ -110,7 +110,7 @@ class start_menu(arcade.View):
         self.on_button_leaderboard_north_america.on_click = self.on_click_button_leaderboard_north_america
 
         # creates the South America buttons.
-        self.button_game_south_america = arcade.gui.UIImageButton(
+        self.button_game_south_america = arcade.gui.UITextureButton(
             center_x = self.window.width * 0.75,
             center_y = self.window.height*.75,
             normal_texture = button_normal,
@@ -123,7 +123,7 @@ class start_menu(arcade.View):
         self.button_game_south_america.on_click = self.on_click_button_game_south_america
 
 
-        self.on_button_leaderboard_south_america = arcade.gui.UIImageButton(
+        self.on_button_leaderboard_south_america = arcade.gui.UITextureButton(
             center_x = self.window.width * 0.75 + 190,
             center_y = self.window.height*.75,
             normal_texture = button_normal,
@@ -136,7 +136,7 @@ class start_menu(arcade.View):
         self.on_button_leaderboard_south_america.on_click = self.on_click_button_leaderboard_south_america
     
         # creates the Australia buttons.
-        self.button_game_australia = arcade.gui.UIImageButton(
+        self.button_game_australia = arcade.gui.UITextureButton(
             center_x = self.window.width * 0.75,
             center_y = self.window.height*.6,
             normal_texture = button_normal,
@@ -149,7 +149,7 @@ class start_menu(arcade.View):
         self.button_game_australia.on_click = self.on_click_button_game_australia
 
 
-        self.on_button_leaderboard_australia = arcade.gui.UIImageButton(
+        self.on_button_leaderboard_australia = arcade.gui.UITextureButton(
             center_x = self.window.width * 0.75 + 190,
             center_y = self.window.height*.6,
             normal_texture = button_normal,
@@ -162,7 +162,7 @@ class start_menu(arcade.View):
         self.on_button_leaderboard_australia.on_click = self.on_click_button_leaderboard_australia
 
         # creates the Asia buttons.
-        self.button_game_asia = arcade.gui.UIImageButton(
+        self.button_game_asia = arcade.gui.UITextureButton(
             center_x = self.window.width * 0.75,
             center_y = self.window.height*.45,
             normal_texture = button_normal,
@@ -175,7 +175,7 @@ class start_menu(arcade.View):
         self.button_game_asia.on_click = self.on_click_button_game_asia
 
 
-        self.on_button_leaderboard_asia = arcade.gui.UIImageButton(
+        self.on_button_leaderboard_asia = arcade.gui.UITextureButton(
             center_x = self.window.width * 0.75 + 190,
             center_y = self.window.height*.45,
             normal_texture = button_normal,
@@ -188,7 +188,7 @@ class start_menu(arcade.View):
         self.on_button_leaderboard_asia.on_click = self.on_click_button_leaderboard_asia
 
         # creates the Africa buttons.
-        self.button_game_africa = arcade.gui.UIImageButton(
+        self.button_game_africa = arcade.gui.UITextureButton(
             center_x = self.window.width * 0.75,
             center_y = self.window.height*.3,
             normal_texture = button_normal,
@@ -201,7 +201,7 @@ class start_menu(arcade.View):
         self.button_game_africa.on_click = self.on_click_button_game_africa
 
 
-        self.on_button_leaderboard_africa = arcade.gui.UIImageButton(
+        self.on_button_leaderboard_africa = arcade.gui.UITextureButton(
             center_x = self.window.width * 0.75 + 190,
             center_y = self.window.height*.3,
             normal_texture = button_normal,
@@ -214,7 +214,7 @@ class start_menu(arcade.View):
         self.on_button_leaderboard_africa.on_click = self.on_click_button_leaderboard_africa
 
         # creates the Europe buttons.
-        self.button_game_europe = arcade.gui.UIImageButton(
+        self.button_game_europe = arcade.gui.UITextureButton(
             center_x = self.window.width * 0.75,
             center_y = self.window.height*.15,
             normal_texture = button_normal,
@@ -227,7 +227,7 @@ class start_menu(arcade.View):
         self.button_game_europe.on_click = self.on_click_button_game_europe
 
 
-        self.on_button_leaderboard_europe = arcade.gui.UIImageButton(
+        self.on_button_leaderboard_europe = arcade.gui.UITextureButton(
             center_x = self.window.width * 0.75 + 190,
             center_y = self.window.height*.15,
             normal_texture = button_normal,
@@ -242,7 +242,7 @@ class start_menu(arcade.View):
 
     def on_click_button_game_north_america(self):
         """ function called when north america's 'New Game' button is clicked on"""
-        self.ui_manager.purge_ui_elements()
+        # # self.ui_manager.purge_ui_elements()
         # print('north america new game button pressed')
         #Calls timer class view will need to get altered a little bit for the final game
         game = Timer(self) 
@@ -250,59 +250,59 @@ class start_menu(arcade.View):
 
     def on_click_button_leaderboard_north_america(self):
         """ function called when north america's 'Leaderboard' button is clicked on"""
-        self.ui_manager.purge_ui_elements()
+        # self.ui_manager.purge_ui_elements()
         #print('north america leaderboard button pressed')
         instruction = LeaderView(self) 
         self.window.show_view(instruction)
 
     def on_click_button_game_south_america(self):
         """ function called when south america's 'New Game' button is clicked on"""
-        #self.ui_manager.purge_ui_elements()
+        ## self.ui_manager.purge_ui_elements()
         print('south america new game button pressed')
 
     def on_click_button_leaderboard_south_america(self):
         """ function called when south america's 'Leaderboard' button is clicked on"""
-        #self.ui_manager.purge_ui_elements()
+        ## self.ui_manager.purge_ui_elements()
         print('south america leaderboard button pressed')
 
     def on_click_button_game_australia(self):
         """ function called when australia's 'New Game' button is clicked on"""
-        #self.ui_manager.purge_ui_elements()
+        ## self.ui_manager.purge_ui_elements()
         print('australia new game button pressed')
 
     def on_click_button_leaderboard_australia(self):
         """ function called when australia's 'Leaderboard' button is clicked on"""
-        #self.ui_manager.purge_ui_elements()
+        ## self.ui_manager.purge_ui_elements()
         print('australia leaderboard button pressed')
 
     def on_click_button_game_asia(self):
         """ function called when asia's 'New Game' button is clicked on"""
-        #self.ui_manager.purge_ui_elements()
+        ## self.ui_manager.purge_ui_elements()
         print('asia new game button pressed')
 
     def on_click_button_leaderboard_asia(self):
         """ function called when asia's 'Leaderboard' button is clicked on"""
-        #self.ui_manager.purge_ui_elements()
+        ## self.ui_manager.purge_ui_elements()
         print('asia leaderboard button pressed')
 
     def on_click_button_game_africa(self):
         """ function called when africa's 'New Game' button is clicked on"""
-        #self.ui_manager.purge_ui_elements()
+        ## self.ui_manager.purge_ui_elements()
         print('africa new game button pressed')
 
     def on_click_button_leaderboard_africa(self):
         """ function called when africa's 'Leaderboard' button is clicked on"""
-        #self.ui_manager.purge_ui_elements()
+        ## self.ui_manager.purge_ui_elements()
         print('africa leaderboard button pressed')
 
     def on_click_button_game_europe(self):
         """ function called when europe's 'New Game' button is clicked on"""
-        #self.ui_manager.purge_ui_elements()
+        ## self.ui_manager.purge_ui_elements()
         print('europe new game button pressed')
 
     def on_click_button_leaderboard_europe(self):
         """ function called when europe's 'Leaderboard' button is clicked on"""
-        #self.ui_manager.purge_ui_elements()
+        ## self.ui_manager.purge_ui_elements()
         print('europe leaderboard button pressed')   
 
 # Sources:
