@@ -2,6 +2,6 @@
 
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
-SCREEN_TITLE = "SCREEN_TITLE"
+SCREEN_TITLE = "Map Guessing Game"
 
 # these are just placeholder values for now

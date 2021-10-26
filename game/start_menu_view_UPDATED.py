@@ -6,6 +6,7 @@ from pathlib import Path
 from constants import SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_TITLE
 from leaderboard import LeaderView
 from timer import Timer
+from director import NA_Game
 
 
 # button constant values
@@ -115,7 +116,8 @@ class StartMenu(arcade.View):
         if len(buttons) > 0:
             if buttons[0].button_name == 'north_america_game':
                 print('You clicked ' + buttons[0].button_name)
-                game = Timer(self) 
+                game = NA_Game()
+                game.setup() 
                 self.window.show_view(game)
 
             if buttons[0].button_name == 'north_america_leaderboard':
