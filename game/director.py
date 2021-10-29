@@ -185,8 +185,18 @@ class NA_Game(arcade.View):
 # https://github.com/KnightenCooper/game
 # https://api.arcade.academy/en/latest/arcade.color.html
 # https://api.arcade.academy/en/2.6.3/api/window.html?highlight=button#arcade.View.on_mouse_press
-
-
+# https://api.arcade.academy/en/latest/examples/timer.html
+# https://github.com/grant516/cse210-project
 # https://api.arcade.academy/en/latest/_modules/arcade/window_commands.html#exit
 # https://api.arcade.academy/en/latest/api/window.html?highlight=key%20press#arcade.View.on_key_press
+# https://arcade-pk.readthedocs.io/en/latest/examples/sprite_move_animation.html
+# https://api.arcade.academy/en/2.6.3/api/gui_widgets.html?highlight=button#arcade.gui.UITextureButton
+# https://www.codegrepper.com/code-examples/python/console+log+python
+# https://realpython.com/arcade-python-game-framework/
+# https://api.arcade.academy/en/latest/gui/index.html
+# https://api.arcade.academy/en/latest/examples/gui_widgets.html#gui-widgets
+# https://api.arcade.academy/en/latest/examples/view_instructions_and_game_over.html#view-instructions-and-game-over
+# https://github.com/KnightenCooper/game
+# https://api.arcade.academy/en/latest/arcade.color.html
+# https://api.arcade.academy/en/2.6.3/api/window.html?highlight=button#arcade.View.on_mouse_press
 
