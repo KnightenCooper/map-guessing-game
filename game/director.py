@@ -107,7 +107,12 @@ class NA_Game(arcade.View):
             """ Eventually the program will need to check if the country has already been correctly guessed and if so know to NOT add red 
             and keep the icon green because the user got that country correct """
 
+
+            # Start a strike total. Increase it by one at each incorrect answer. When strike reaches three, go to the else statement.
+
+
             # add a variable to store the correct answer, in the final version this is be determined by getting country names from a list
+            strike = 0
             correct_answer = 'usa'
             #testing writing to the leaderboard
 
@@ -136,9 +141,11 @@ class NA_Game(arcade.View):
                 
             # if it is the wrong guess then we make the icon red
             else:
-                wrong = arcade.Sprite(str(Path(__file__).parent.resolve()) +"\\assets\knighten_testing\\wrong.png")
-                wrong.position = countries[0].position
-                self.country_list.append(wrong)
+                strike += 1
+                if strike == 3:
+                    wrong = arcade.Sprite(str(Path(__file__).parent.resolve()) +"\\assets\knighten_testing\\wrong.png")
+                    wrong.position = countries[0].position
+                    self.country_list.append(wrong)
 
     #logic for the timer
     def on_update(self, delta_time):
@@ -168,5 +175,8 @@ class NA_Game(arcade.View):
 # https://github.com/KnightenCooper/game
 # https://api.arcade.academy/en/latest/arcade.color.html
 # https://api.arcade.academy/en/2.6.3/api/window.html?highlight=button#arcade.View.on_mouse_press
+
+
 # https://api.arcade.academy/en/latest/_modules/arcade/window_commands.html#exit
 # https://api.arcade.academy/en/latest/api/window.html?highlight=key%20press#arcade.View.on_key_press
+
