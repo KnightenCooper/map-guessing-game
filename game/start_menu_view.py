@@ -5,8 +5,7 @@ import arcade
 from pathlib import Path
 from constants import SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_TITLE
 from leaderboard import LeaderView
-from timer import Timer
-from director import NA_Game
+from NA_Game import NA_Game
 
 
 # button constant values

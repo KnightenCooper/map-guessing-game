@@ -8,12 +8,7 @@ from guess_logic import MyGame
 import pyglet
 import csv
 
-
 music_volume = 0.5
-
-
-
-
 
 class NA_Game(arcade.View):
 
