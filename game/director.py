@@ -13,10 +13,14 @@ music_volume = 0.5
 
 
 
+
+
 class NA_Game(arcade.View):
 
     def __init__(self):
         super().__init__()
+        # Start a strike total. Increase it by one at each incorrect answer. When strike reaches three, go to the else statement.
+        self.strike = 0
 
         # list of countries         1             2         3        4       5            6                   7          8           9    
         self.NA_countries = ["United States", "Canada", "Mexico", "Cuba", "Haiti", "Dominican Republic", "Jamaica", "Guatemala", "Belize", 
@@ -69,6 +73,9 @@ class NA_Game(arcade.View):
         """
         Render the screen.
         """
+
+
+
         # This command has to happen before we start drawing
         arcade.start_render()
 
@@ -108,11 +115,10 @@ class NA_Game(arcade.View):
             and keep the icon green because the user got that country correct """
 
 
-            # Start a strike total. Increase it by one at each incorrect answer. When strike reaches three, go to the else statement.
 
 
             # add a variable to store the correct answer, in the final version this is be determined by getting country names from a list
-            strike = 0
+            
             correct_answer = 'usa'
             #testing writing to the leaderboard
 
@@ -141,11 +147,14 @@ class NA_Game(arcade.View):
                 
             # if it is the wrong guess then we make the icon red
             else:
-                strike += 1
-                if strike == 3:
+                
+                self.strike += 1
+                print("YOU FOOL!!!!" + str(self.strike))
+                if self.strike == 3:
                     wrong = arcade.Sprite(str(Path(__file__).parent.resolve()) +"\\assets\knighten_testing\\wrong.png")
                     wrong.position = countries[0].position
                     self.country_list.append(wrong)
+                    self.strike = 0
 
     #logic for the timer
     def on_update(self, delta_time):
