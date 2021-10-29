@@ -133,7 +133,8 @@ class NA_Game(arcade.View):
                 rows = [name , self.output]
 
                 #sets the filename equal to a variable
-                filename = "game/leaderboard.csv"
+                filename = (str(Path(__file__).parent.resolve()) + "\\leaderboard.csv")
+
 
                 #opens and appends the data to the file
                 with open(filename, 'a') as csvfile:
