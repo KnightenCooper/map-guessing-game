@@ -88,8 +88,9 @@ class NA_Game(arcade.View):
             """ Eventually the program will need to check if the country has already been correctly guessed and if so know to NOT add red 
             and keep the icon green because the user got that country correct """
 
-
+            # Start a strike total. Increase it by one at each incorrect answer. When strike reaches three, go to the else statement.
             # add a variable to store the correct answer, in the final version this is be determined by getting country names from a list
+            strike = 0
             correct_answer = 'usa'
             # if the country clicked is the correct answer then make the icon green
             if countries[0].country_name == correct_answer:
@@ -99,9 +100,11 @@ class NA_Game(arcade.View):
 
             # if it is the wrong guess then we make the icon red
             else:
-                wrong = arcade.Sprite(str(Path(__file__).parent.resolve()) +"\\assets\knighten_testing\\wrong.png")
-                wrong.position = countries[0].position
-                self.country_list.append(wrong)
+                strike += 1
+                if strike == 3:
+                    wrong = arcade.Sprite(str(Path(__file__).parent.resolve()) +"\\assets\knighten_testing\\wrong.png")
+                    wrong.position = countries[0].position
+                    self.country_list.append(wrong)
 
 
 # Sources:
