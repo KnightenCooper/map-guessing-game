@@ -33,7 +33,7 @@ class Timer(arcade.View):
         seconds_100s = int((self.total_time - seconds) * 100)
 
         self.output = f"{minutes:02d}:{seconds:02d}:{seconds_100s:2d}"
-
+        
 
 # Sources
 # https://api.arcade.academy/en/latest/examples/timer.html

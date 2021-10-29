@@ -5,6 +5,9 @@ from arcade.gui import UIManager
 from constants import SCREEN_HEIGHT, SCREEN_WIDTH
 from leaderboard import LeaderView
 from guess_logic import MyGame
+import pyglet
+import csv
+
 
 music_volume = 0.5
 
@@ -35,6 +38,10 @@ class NA_Game(arcade.View):
 
         arcade.set_background_color(arcade.color.CADET_GREY)
 
+        #timer declarations
+        self.total_time = 0.0
+        self.output = "00:00:00"
+
     def setup(self):
         # self.background = arcade.load_texture("assets/NA-template.png")
         self.background_img_path = str(Path(__file__).parent.resolve()) + f"\\assets\\NA-template.png"
@@ -51,6 +58,9 @@ class NA_Game(arcade.View):
             self.black_square = arcade.Sprite(self.square_img_path, scale=1, center_x=self.square_positions_x[n], center_y=self.square_positions_y[n])
             self.square_list.append(self.black_square)
             n = n + 1
+
+        self.total_time = 0.0
+
 
         #Create Buttons for user to click one for each country
         MyGame.setup(self)
@@ -70,8 +80,17 @@ class NA_Game(arcade.View):
         # Render the text
         arcade.draw_text("North America", 10, 670, arcade.color.BLACK, 40)
 
+        #draws the timer
+        arcade.draw_text(self.output,
+                         SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 50,
+                         arcade.color.BLACK, 25,
+                         anchor_x="center")
         #create buttons
         MyGame.on_draw(self)
+
+
+
+
 
     # Add on_mouse_press from guess_logic.py file
     def on_mouse_press(self, x, y, button, key_modifiers):
@@ -88,16 +107,38 @@ class NA_Game(arcade.View):
             """ Eventually the program will need to check if the country has already been correctly guessed and if so know to NOT add red 
             and keep the icon green because the user got that country correct """
 
+
             # Start a strike total. Increase it by one at each incorrect answer. When strike reaches three, go to the else statement.
+
+
             # add a variable to store the correct answer, in the final version this is be determined by getting country names from a list
             strike = 0
             correct_answer = 'usa'
+            #testing writing to the leaderboard
+
             # if the country clicked is the correct answer then make the icon green
             if countries[0].country_name == correct_answer:
                 right = arcade.Sprite(str(Path(__file__).parent.resolve()) +"\\assets\knighten_testing\\right.png")
                 right.position = countries[0].position
                 self.country_list.append(right)
+                
+                name = input('What is your name? ')
+                
+                rows = [name , self.output]
 
+                #sets the filename equal to a variable
+                filename = "game/leaderboard.csv"
+
+                #opens and appends the data to the file
+                with open(filename, 'a') as csvfile:
+                    csvwriter = csv.writer(csvfile)
+                    csvwriter.writerow(rows)
+                    print(rows)
+                
+                #takes you to the leaderboard
+                instruction = LeaderView() 
+                self.window.show_view(instruction)
+                
             # if it is the wrong guess then we make the icon red
             else:
                 strike += 1
@@ -105,6 +146,22 @@ class NA_Game(arcade.View):
                     wrong = arcade.Sprite(str(Path(__file__).parent.resolve()) +"\\assets\knighten_testing\\wrong.png")
                     wrong.position = countries[0].position
                     self.country_list.append(wrong)
+
+    #logic for the timer
+    def on_update(self, delta_time):
+
+        self.total_time += delta_time
+
+        minutes = int(self.total_time) // 60
+        seconds = int(self.total_time) % 60
+        seconds_100s = int((self.total_time - seconds) * 100)
+
+        self.output = f"{minutes:02d}:{seconds:02d}:{seconds_100s:02d}"
+
+
+
+    def on_key_press(self, symbol: arcade.key.ESCAPE, modifiers):
+        pyglet.app.exit()
 
 
 # Sources:
@@ -118,3 +175,8 @@ class NA_Game(arcade.View):
 # https://github.com/KnightenCooper/game
 # https://api.arcade.academy/en/latest/arcade.color.html
 # https://api.arcade.academy/en/2.6.3/api/window.html?highlight=button#arcade.View.on_mouse_press
+
+
+# https://api.arcade.academy/en/latest/_modules/arcade/window_commands.html#exit
+# https://api.arcade.academy/en/latest/api/window.html?highlight=key%20press#arcade.View.on_key_press
+
