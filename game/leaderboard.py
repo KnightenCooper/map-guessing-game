@@ -42,10 +42,11 @@ class LeaderView(arcade.View):
         arcade.draw_text(f'The best time is {best_score} by ]',
                          constants.SCREEN_HEIGHT/3,
                          constants.SCREEN_WIDTH/4,
+                         arcade.color.WHITE_SMOKE,
                          font_size=20)
 
 
-window = arcade.Window(constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT, constants.SCREEN_TITLE)
-leader = LeaderView()
-window.show_view(leader)
-arcade.run()
+# window = arcade.Window(constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT, constants.SCREEN_TITLE)
+# leader = LeaderView()
+# window.show_view(leader)
+# arcade.run()
