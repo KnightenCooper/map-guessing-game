@@ -1,6 +1,8 @@
 import arcade
 import constants
 import pandas as pd
+from pathlib import Path
+
 # from arcade.gui import UIManager
 
 class LeaderView(arcade.View):
@@ -25,7 +27,8 @@ class LeaderView(arcade.View):
                          font_size=45,
                          anchor_x="center")
         # Read the csv file and get the fastest time
-        data = pd.read_csv('leaderboard.csv')
+        filename = (str(Path(__file__).parent.resolve()) + "\\leaderboard.csv")
+        data = pd.read_csv(filename)
         best_score = data.time.min()
         #best_player = data[data.time == data.time.min()].get_loc()
         #idx = idx.get_loc(best_score)
