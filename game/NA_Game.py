@@ -4,11 +4,12 @@ from pathlib import Path
 from arcade.gui import UIManager
 from constants import SCREEN_HEIGHT, SCREEN_WIDTH
 from leaderboard import LeaderView
-from guess_logic import MyGame
+from guess_logic import MyGame, Country
 import pyglet
 import csv
 
 music_volume = 0.5
+
 
 class NA_Game(arcade.View):
 
@@ -22,6 +23,10 @@ class NA_Game(arcade.View):
         "El Salvador", "Honduras", "Nicaragua", "Costa Rica", "Panama"]
         #    10            11          12            13          14
 
+        # list of countries(Used for display)1     2         3        4       5            6                   7          8           9    
+        self.display_NA_countries = ["United States", "Canada", "Mexico", "Cuba", "Haiti", "Dominican Republic", "Jamaica", "Guatemala", "Belize", 
+        "El Salvador", "Honduras", "Nicaragua", "Costa Rica", "Panama"]
+        #    10            11          12            13          14
         # 14 total countries        1    2    3    4      5     6     7    8     9    10   11    12    13    14
         self.square_positions_x = [930, 870, 910, 1125, 1175, 1220, 1190, 890, 1070, 940, 1100, 1130, 1020, 1200]
         self.square_positions_y = [290, 460, 150, 215, 220, 205, 110, 70, 130, 35, 110, 90, 30, 60]
@@ -41,6 +46,9 @@ class NA_Game(arcade.View):
         self.total_time = 0.0
         self.output = "00:00:00"
 
+        # store country for display
+        self.display_country = self.display_NA_countries[random.randrange(0, (len(self.display_NA_countries) - 1))]
+
     def setup(self):
         # self.background = arcade.load_texture("assets/NA-template.png")
         self.background_img_path = str(Path(__file__).parent.resolve()) + f"\\assets\\NA-template.png"
@@ -58,11 +66,33 @@ class NA_Game(arcade.View):
             self.square_list.append(self.black_square)
             n = n + 1
 
+
+
+        # Sprite list with all the countries that is used for buttons (the above code draws the icons and this code creates buttons for guess logic)
+        self.country_list = arcade.SpriteList()
+
+        # Create every country icon by looping through the list, n is used to also loop through each countries' icons location by getting the 
+        # This creates the buttons that will be used 
+        n = 0
+        for country_value in self.NA_countries:
+            country = Country(country_value)
+            country.position = self.square_positions_x[n], self.square_positions_y[n]
+            self.country_list.append(country)
+            n = n + 1
+
         self.total_time = 0.0
 
 
         #Create Buttons for user to click one for each country
-        MyGame.setup(self)
+        # MyGame.setup(self)
+
+    def new_random_country(self):
+        """ Delete the current country from the list and select a new random country"""
+        # remove current country
+        self.display_NA_countries.remove(self.display_country)
+        # if there is at least one value then get a new random country
+        if len(self.display_NA_countries) > 1:
+            self.display_country = self.display_NA_countries[random.randrange(0, (len(self.display_NA_countries) - 1))]
 
     def on_draw(self):
         """
@@ -79,6 +109,11 @@ class NA_Game(arcade.View):
         # draws each square
         self.square_list.draw()
 
+
+
+        # Render the text
+        arcade.draw_text(self.display_country, 10, 570, arcade.color.BLACK, 40)
+
         # Render the text
         arcade.draw_text("North America", 10, 670, arcade.color.BLACK, 40)
 
@@ -88,7 +123,7 @@ class NA_Game(arcade.View):
                          arcade.color.BLACK, 25,
                          anchor_x="center")
         #create buttons
-        MyGame.on_draw(self)
+        # MyGame.on_draw(self)
 
 
 
@@ -112,17 +147,36 @@ class NA_Game(arcade.View):
 
 
 
-            # add a variable to store the correct answer, in the final version this is be determined by getting country names from a list
+            # The correct is the country that is being displayed, this variable exists for code readability
+            correct_answer = self.display_country
+            print(correct_answer)
             
-            correct_answer = 'usa'
-            #testing writing to the leaderboard
 
             # if the country clicked is the correct answer then make the icon green
             if countries[0].country_name == correct_answer:
-                right = arcade.Sprite(str(Path(__file__).parent.resolve()) +"\\assets\knighten_testing\\right.png")
+                # move onto the next country and update what country is shown
+                NA_Game.new_random_country(self)
+
+
+                right = arcade.Sprite(str(Path(__file__).parent.resolve()) +"\\assets\\green-square.png")
                 right.position = countries[0].position
-                self.country_list.append(right)
+                self.square_list.append(right)
+
                 
+            # if it is the wrong guess then we make the icon red
+            else:
+                
+                self.strike += 1
+                print("YOU FOOL!!!!" + str(self.strike))
+                wrong = arcade.Sprite(str(Path(__file__).parent.resolve()) +"\\assets\\red-square.png")
+                wrong.position = countries[0].position
+                self.square_list.append(wrong)
+                if self.strike == 3:
+
+                    self.strike = 0
+                    # move onto the next country and update what country is shown
+                    NA_Game.new_random_country(self)
+            if len(self.display_NA_countries) == 1:
                 name = input('What is your name? ')
                 
                 rows = [name , self.output]
@@ -140,18 +194,6 @@ class NA_Game(arcade.View):
                 #takes you to the leaderboard
                 instruction = LeaderView() 
                 self.window.show_view(instruction)
-                
-            # if it is the wrong guess then we make the icon red
-            else:
-                
-                self.strike += 1
-                print("YOU FOOL!!!!" + str(self.strike))
-                if self.strike == 3:
-                    wrong = arcade.Sprite(str(Path(__file__).parent.resolve()) +"\\assets\knighten_testing\\wrong.png")
-                    wrong.position = countries[0].position
-                    self.country_list.append(wrong)
-                    self.strike = 0
-
     #logic for the timer
     def on_update(self, delta_time):
 
