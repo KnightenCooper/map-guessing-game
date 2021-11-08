@@ -3,7 +3,7 @@ import constants
 import pandas as pd
 from pathlib import Path
 
-# from arcade.gui import UIManager
+from arcade.gui import UIManager
 
 class LeaderView(arcade.View):
     """ TESTING PURPOSES ONLY... this class creates a page that says 
@@ -28,8 +28,25 @@ class LeaderView(arcade.View):
                          anchor_x="center")
         # Read the csv file and get the fastest time
         filename = (str(Path(__file__).parent.resolve()) + "\\leaderboard.csv")
+        # store the csv file into data
         data = pd.read_csv(filename)
-        best_score = data.time.min()
+        # best_score = data.time.min()
+
+        # First we sort 'data' into 'sorted_data' that has 10 values and is the 10 fastest times  
+        sorted_data = data.sort_values(by ="time", ascending=True).head(10)
+
+        # store the #1 best player and #1 best score 
+        best_player = sorted_data.iat[0,0]
+        best_score = sorted_data.iat[0,1]
+
+        # store the #2 best player and #1 best score 
+        best_player2 = sorted_data.iat[1,0]
+        best_score2 = sorted_data.iat[1,1]
+
+        # store the #3 best player and #1 best score 
+        best_player3 = sorted_data.iat[2,0]
+        best_score3 = sorted_data.iat[2,1]
+
         #best_player = data[data.time == data.time.min()].get_loc()
         #idx = idx.get_loc(best_score)
         #best_player = get_name[data[0]]
@@ -39,11 +56,46 @@ class LeaderView(arcade.View):
         #best_player = pd.Series(get_name)
         # best_player = get_name.idxmin()
 
-        arcade.draw_text(f'The best time is {best_score} by ]',
-                         constants.SCREEN_HEIGHT/3,
-                         constants.SCREEN_WIDTH/4,
-                         arcade.color.WHITE_SMOKE,
-                         font_size=20)
+        # arcade.draw_text(f'The best time is {best_score} by {best_player}, then next is {best_score2} by {best_player2}, then next is {best_score3} by {best_player3}',
+        #                  constants.SCREEN_HEIGHT/3,
+        #                  constants.SCREEN_WIDTH/4,
+        #                  arcade.color.WHITE_SMOKE,
+        #                  font_size=20)
+
+        # arcade.draw_text(f'#1 {best_score} by {best_player}, then next is {best_score2} by {best_player2}, then next is {best_score3} by {best_player3}',
+        #                  constants.SCREEN_HEIGHT/3,
+        #                  constants.SCREEN_WIDTH/4,
+        #                  arcade.color.WHITE_SMOKE,
+        #                  font_size=20)
+
+        # store the best scores/players
+        # first = f'#1 {best_score} by {best_player}' NOTE: for this entry I showed how you could code the answer directly into the scores array
+        second = f'#2 {best_score2} by {best_player2}'
+        third = f'#3 {best_score3} by {best_player3}'
+
+        # create an array to store the text that will be displayed and the height it will be displayed 
+        scores = [['#1 '+ str(best_score) + ' by ' + str(best_player), .9], [second, .75], [third, .6], ["Fourth Goes Here", .45], ["Fifth goes Here", .3], ["Sixth Etc", .15]]
+        # loop through the array and draw the text onto the start menu screen based on the values in the array
+        for score in scores:
+            LeaderView.draw_score(score[0], score[1])
+
+    def draw_score(text, height):
+        """ draw the text labels for the scores onto the screen"""
+        arcade.draw_text(text,
+                    constants.SCREEN_WIDTH * 0.75 - 230,
+                    constants.SCREEN_HEIGHT * height -20,
+                    arcade.color.WHITE_SMOKE,
+                    font_size=30,
+                    anchor_x="center")
+
+
+
+# filename = (str(Path(__file__).parent.resolve()) + "\\leaderboard.csv")
+# data = pd.read_csv(filename)
+# data.sort_values(by ="name", ascending=True)
+# print (data.sort_values(by ="time", ascending=True).head(10))
+
+
 
 
 # window = arcade.Window(constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT, constants.SCREEN_TITLE)
