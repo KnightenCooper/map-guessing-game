@@ -7,7 +7,7 @@ from leaderboard import LeaderView
 from icons import CountryClickableIcons
 import pyglet
 import csv
-
+from get_name_view import GetNameView
 music_volume = 0.5
 
 
@@ -149,22 +149,29 @@ class NA_Game(arcade.View):
                     NA_Game.new_random_country(self)
             # if the user has attempted to guess all possible countries then we get their name and log their score into the leaderboard
             if len(self.display_NA_countries) == 0:
-                name = input('What is your name? ')
-                
-                rows = [name , self.output]
 
-                #sets the filename equal to a variable
-                filename = (str(Path(__file__).parent.resolve()) + "\\leaderboard.csv")
 
-                #opens and appends the data to the file
-                with open(filename, 'a') as csvfile:
-                    csvwriter = csv.writer(csvfile)
-                    csvwriter.writerow(rows)
-                    print(rows)
+
+                # name = input('What is your name? ')
                 
+                # rows = [name , self.output]
+
+                # #sets the filename equal to a variable
+                # filename = (str(Path(__file__).parent.resolve()) + "\\leaderboard.csv")
+
+                # #opens and appends the data to the file
+                # with open(filename, 'a') as csvfile:
+                #     csvwriter = csv.writer(csvfile)
+                #     csvwriter.writerow(rows)
+                #     print(rows)
+                
+                # Takes you to get your name
+                view = GetNameView()
+                self.window.show_view(view)
+
                 #takes you to the leaderboard
-                instruction = LeaderView() 
-                self.window.show_view(instruction)
+                # instruction = LeaderView() 
+                # self.window.show_view(instruction)
     #logic for the timer
     def on_update(self, delta_time):
 
