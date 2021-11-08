@@ -38,25 +38,33 @@ class GetNameView(arcade.View):
     def on_key_press(self, symbol,modifier):
         """ Whenever the user presses a letter add it to the output or remove a letter from output if user presses Backspace"""
 
-        # Checking the button pressed
-        alphabet = [arcade.key.A, arcade.key.B, arcade.key.C, arcade.key.D, arcade.key.E, arcade.key.F, arcade.key.G, arcade.key.H, arcade.key.I, arcade.key.J, arcade.key.K, arcade.key.L, arcade.key.M, arcade.key.N, arcade.key.O, arcade.key.P, arcade.key.Q, arcade.key.R, arcade.key.S, arcade.key.T, arcade.key.U, arcade.key.V, arcade.key.W, arcade.key.X, arcade.key.Y, arcade.key.Z]
+        # Checking the button pressed by looping through this array of the alphabet
+        alphabet = [arcade.key.A, arcade.key.B, arcade.key.C, arcade.key.D, arcade.key.E, arcade.key.F, arcade.key.G, arcade.key.H, 
+        arcade.key.I, arcade.key.J, arcade.key.K, arcade.key.L, arcade.key.M, arcade.key.N, arcade.key.O, arcade.key.P, arcade.key.Q, 
+        arcade.key.R, arcade.key.S, arcade.key.T, arcade.key.U, arcade.key.V, arcade.key.W, arcade.key.X, arcade.key.Y, arcade.key.Z]
 
         # add each letter as the user presses it
         for letter in alphabet:
             if symbol == letter:
                 print(chr(letter))
                 self.output = self.output + chr(letter)
+
         # remove the last letter if user hits backspace
         if symbol == BACKSPACE:
             output_string = str(self.output)
-            print(output_string)
-
             self.output = output_string.rstrip(output_string[-1])
 
+        # if the user hits 'Enter' then add the self.output (the user's inputted name) to the csv file
         if symbol == arcade.key.ENTER:
-                # name = input('What is your name? ')
+                # set name to be same as user inputted name
                 name = self.output
-                
+
+
+                # IMPORTANT
+                """ the time is hardcoded as 999999999999999 and needs to be the actual time """
+                # IMPORTANT
+
+
                 rows = [name , 9999999999999999999999999]
 
                 #sets the filename equal to a variable
