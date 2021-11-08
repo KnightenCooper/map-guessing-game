@@ -102,3 +102,11 @@ class LeaderView(arcade.View):
 # leader = LeaderView()
 # window.show_view(leader)
 # arcade.run()
+
+
+
+# Sources: 
+# https://www.stackvidhya.com/get-value-of-cell-from-a-pandas-dataframe/#:~:text=You%20can%20get%20the%20value,iat%5B0%2C0%5D%20.
+# https://www.howtogeek.com/348960/what-is-a-csv-file-and-how-do-i-open-it/
+# https://realpython.com/pandas-sort-python/#sorting-your-dataframe-on-multiple-columns
+# https://www.analyticsvidhya.com/blog/2021/08/python-tutorial-working-with-csv-file-for-data-science/
