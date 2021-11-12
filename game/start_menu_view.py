@@ -9,10 +9,10 @@ from NA_Game import NA_Game
 
 
 # button values. The BUTTON_VALUES needs to match the class name for buttons to work
-BUTTON_VALUES = [NA_Game, LeaderView, "south_america_game", "south_america_leaderboard", "australia_game", "australia_leaderboard", "asia_game", "asia_leaderboard", "africa_game", "africa_leaderboard", "europe_game", "europe_leaderboard"]
+BUTTON_VALUES = [NA_Game, LeaderView, "south_america_game", "south_america_leaderboard", "asia_game", "asia_leaderboard", "africa_game", "africa_leaderboard", "europe_game", "europe_leaderboard"]
 POSITIONX = [SCREEN_WIDTH * 0.75, SCREEN_WIDTH * 0.75 + 190]
-POSITIONY = [SCREEN_HEIGHT * .9, SCREEN_HEIGHT * .9, SCREEN_HEIGHT * .75, SCREEN_HEIGHT * .75, SCREEN_HEIGHT * .6, SCREEN_HEIGHT * .6,
- SCREEN_HEIGHT * .45, SCREEN_HEIGHT * .45, SCREEN_HEIGHT * .3, SCREEN_HEIGHT * .3, SCREEN_HEIGHT * .15, SCREEN_HEIGHT * .15]
+POSITIONY = [SCREEN_HEIGHT * .75, SCREEN_HEIGHT * .75, SCREEN_HEIGHT * .6, SCREEN_HEIGHT * .6, SCREEN_HEIGHT * .45, SCREEN_HEIGHT * .45,
+ SCREEN_HEIGHT * .3, SCREEN_HEIGHT * .3, SCREEN_HEIGHT * .15, SCREEN_HEIGHT * .15]
 BUTTON_IMAGE = ["new_game", "leaderboard"]
 
 class Button(arcade.Sprite):
@@ -67,6 +67,15 @@ class StartMenu(arcade.View):
                     font_size=30,
                     anchor_x="center")
 
+    def draw_title(text, height):
+        """ draw the text labels for the game's title"""
+        arcade.draw_text(text,
+                    SCREEN_WIDTH * 0.5,
+                    SCREEN_HEIGHT * height -20,
+                    arcade.color.WHITE_SMOKE,
+                    font_size=30,
+                    anchor_x="center")
+
     def on_draw(self):
         """ Render the screen. """
         # Clear the screen
@@ -76,10 +85,11 @@ class StartMenu(arcade.View):
         self.button_sprite_list.draw()
 
         # create a 2-dimensional array that stores the text to be displayed and the height modifier
-        country_labels = [["North America", .9], ["South America", .75], ["Australia", .6], ["Asia", .45], ["Africa", .3], ["Europe", .15]]
+        country_labels = [["North America", .75], ["South America", .6], ["Asia", .45], ["Africa", .3], ["Europe", .15]]
         # loop through the array and draw the text onto the start menu screen based on the values in the array
         for country in country_labels:
             StartMenu.draw_country_label(country[0], country[1])
+        StartMenu.draw_title(" - Game Title Goes Here -", 0.9)
 
     def on_mouse_press(self, x, y, button, key_modifiers):
         """ Called when the user presses a mouse button. """
