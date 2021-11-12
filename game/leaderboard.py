@@ -18,14 +18,14 @@ class LeaderView(arcade.View):
         arcade.set_background_color(arcade.color.BLACK)
 
     def on_draw(self):
-        """TESTING PURPOSES ONLY... creates the view for the instruction menu."""  
+        """TESTING PURPOSES ONLY... creates the view for the instruction menu."""
+        start_x = 50
+        start_y = 400
         arcade.start_render()
-        arcade.draw_text("LEADERBOARD",
-                         constants.SCREEN_WIDTH/2,
-                         constants.SCREEN_HEIGHT/2+90,
-                         arcade.color.WHITE,
-                         font_size=45,
-                         anchor_x="center")
+        arcade.draw_text("LEADERBOARD",start_x, start_y,
+                         arcade.color.RED,
+                         font_size=30,
+                         anchor_x="left", anchor_y="top")
         # Read the csv file and get the fastest time
         filename = (str(Path(__file__).parent.resolve()) + "\\leaderboard.csv")
         # store the csv file into data
@@ -46,6 +46,34 @@ class LeaderView(arcade.View):
         # store the #3 best player and #1 best score 
         best_player3 = sorted_data.iat[2,0]
         best_score3 = sorted_data.iat[2,1]
+
+        # store the #4 best player and #1 best score
+        best_player4 = sorted_data.iat[3, 0]
+        best_score4 = sorted_data.iat[3, 1]
+
+        # store the #5 best player and #1 best score
+        best_player5 = sorted_data.iat[4, 0]
+        best_score5 = sorted_data.iat[4, 1]
+
+        # store the #6 best player and #1 best score
+        best_player6 = sorted_data.iat[5, 0]
+        best_score6 = sorted_data.iat[5, 1]
+
+        # store the #7 best player and #1 best score
+        best_player7 = sorted_data.iat[6, 0]
+        best_score7 = sorted_data.iat[6, 1]
+
+        # store the #8 best player and #1 best score
+        best_player8 = sorted_data.iat[7, 0]
+        best_score8 = sorted_data.iat[7, 1]
+
+        # store the #9 best player and #1 best score
+        best_player9 = sorted_data.iat[8, 0]
+        best_score9 = sorted_data.iat[8, 1]
+
+        # store the #10 best player and #1 best score
+        best_player10 = sorted_data.iat[9, 0]
+        best_score10 = sorted_data.iat[9, 1]
 
         #best_player = data[data.time == data.time.min()].get_loc()
         #idx = idx.get_loc(best_score)
@@ -72,9 +100,17 @@ class LeaderView(arcade.View):
         # first = f'#1 {best_score} by {best_player}' NOTE: for this entry I showed how you could code the answer directly into the scores array
         second = f'#2 {best_score2} by {best_player2}'
         third = f'#3 {best_score3} by {best_player3}'
+        fourth = f'#4 {best_score4} by {best_player4}'
+        fifth = f'#5 {best_score5} by {best_player5}'
+        sixth = f'#6 {best_score6} by {best_player6}'
+        seventh = f'#7 {best_score7} by {best_player7}'
+        eighth = f'#8 {best_score8} by {best_player8}'
+        ninth = f'#9 {best_score9} by {best_player9}'
+        tenth = f'#10 {best_score10} by {best_player10}'
 
         # create an array to store the text that will be displayed and the height it will be displayed 
-        scores = [['#1 '+ str(best_score) + ' by ' + str(best_player), .9], [second, .75], [third, .6], ["Fourth Goes Here", .45], ["Fifth goes Here", .3], ["Sixth Etc", .15]]
+        scores = [['#1 '+ str(best_score) + ' by ' + str(best_player), .9], [second, .82], [third, .74], [fourth, .66],
+                  [fifth, .58], [sixth, .5], [seventh, .42], [eighth, .34], [ninth, .26], [tenth, .18]]
         # loop through the array and draw the text onto the start menu screen based on the values in the array
         for score in scores:
             LeaderView.draw_score(score[0], score[1])
@@ -85,7 +121,7 @@ class LeaderView(arcade.View):
                     constants.SCREEN_WIDTH * 0.75 - 230,
                     constants.SCREEN_HEIGHT * height -20,
                     arcade.color.WHITE_SMOKE,
-                    font_size=30,
+                    font_size=15,
                     anchor_x="center")
 
 
