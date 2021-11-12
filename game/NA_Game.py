@@ -116,6 +116,8 @@ class NA_Game(arcade.View):
         # countries = arcade.get_sprites_at_point((x, y), self.country_list)
         countries = arcade.get_sprites_at_point((x, y), self.country_list)
 
+        print(x,y)
+
         # Have we clicked on a country?
         if len(countries) > 0:
             # print the name of the country clicked
