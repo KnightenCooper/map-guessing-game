@@ -23,10 +23,6 @@ class NA_Game(arcade.View):
         "El Salvador", "Honduras", "Nicaragua", "Costa Rica", "Panama"]
         #    10            11          12            13          14
 
-        # list of countries(Used for display)1     2         3        4       5            6                   7          8           9    
-        self.display_NA_countries = ["United States", "Canada", "Mexico", "Cuba", "Haiti", "Dominican Republic", "Jamaica", "Guatemala", "Belize", 
-        "El Salvador", "Honduras", "Nicaragua", "Costa Rica", "Panama"]
-        #    10            11          12            13          14
         # 14 total countries        1    2    3    4      5     6     7    8     9    10   11    12    13    14
         self.square_positions_x = [930, 870, 910, 1125, 1175, 1220, 1190, 890, 1070, 940, 1100, 1130, 1020, 1200]
         self.square_positions_y = [290, 460, 150, 215, 220, 205, 110, 70, 130, 35, 110, 90, 30, 60]
@@ -47,7 +43,7 @@ class NA_Game(arcade.View):
         self.output = "00:00:00"
 
         # store country for display
-        self.display_country = self.display_NA_countries[random.randrange(0, (len(self.display_NA_countries) - 1))]
+        self.display_country = self.NA_countries[random.randrange(0, (len(self.NA_countries) - 1))]
             
     def setup(self):
         """ get the game set up and ready to play by creating background and clickable icons """
@@ -77,13 +73,13 @@ class NA_Game(arcade.View):
     def new_random_country(self):
         """ Delete the current country from the list and select a new random country"""
         # remove current country
-        self.display_NA_countries.remove(self.display_country)
+        self.NA_countries.remove(self.display_country)
         # if there is at least one value then get a new random country
-        if len(self.display_NA_countries) > 1:
-            self.display_country = self.display_NA_countries[random.randrange(0, (len(self.display_NA_countries) - 1))]
+        if len(self.NA_countries) > 1:
+            self.display_country = self.NA_countries[random.randrange(0, (len(self.NA_countries) - 1))]
         # if there is only one value then use that value
-        if len(self.display_NA_countries) == 1:
-            self.display_country = self.display_NA_countries[0]
+        if len(self.NA_countries) == 1:
+            self.display_country = self.NA_countries[0]
 
     def on_draw(self):
         """
@@ -116,6 +112,8 @@ class NA_Game(arcade.View):
         # countries = arcade.get_sprites_at_point((x, y), self.country_list)
         countries = arcade.get_sprites_at_point((x, y), self.country_list)
 
+        print(x,y)
+
         # Have we clicked on a country?
         if len(countries) > 0:
             # print the name of the country clicked
@@ -137,18 +135,23 @@ class NA_Game(arcade.View):
                 self.strike = 0
                 
             # if it is the wrong guess then we make the icon red, increase the strike counter, and see if the user is out of guesses
-            else:
+            # if asset is not green then do this
+            elif countries[0].country_name in self.NA_countries :
                 self.strike += 1
                 wrong = arcade.Sprite(str(Path(__file__).parent.resolve()) +"\\assets\\red-square.png")
                 wrong.position = countries[0].position
                 self.country_list.append(wrong)
                 # if the user has made 3 guesses then we reset the strike counter and move onto the next country
-                if self.strike == 3:
-                    self.strike = 0
-                    # move onto the next country and update what country is shown
-                    NA_Game.new_random_country(self)
+                
+
+                # if self.strike == 3:
+                #     self.strike = 0
+                #     # move onto the next country and update what country is shown
+                #     NA_Game.new_random_country(self)
+
+
             # if the user has attempted to guess all possible countries then we get their name and log their score into the leaderboard
-            if len(self.display_NA_countries) == 0:
+            if len(self.NA_countries) == 0:
 
 
 
