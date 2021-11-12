@@ -9,9 +9,10 @@ from NA_Game import NA_Game
 
 
 # button values. The BUTTON_VALUES needs to match the class name for buttons to work
-BUTTON_VALUES = [NA_Game, LeaderView, "south_america_game", "south_america_leaderboard"]
-POSITIONX = [SCREEN_WIDTH * 0.75, SCREEN_WIDTH * 0.75 + 190, SCREEN_WIDTH * 0.75, SCREEN_WIDTH * 0.75 + 190]
-POSITIONY = [SCREEN_HEIGHT * .9, SCREEN_HEIGHT * .9, SCREEN_HEIGHT * .75, SCREEN_HEIGHT * .75]
+BUTTON_VALUES = [NA_Game, LeaderView, "south_america_game", "south_america_leaderboard", "australia_game", "australia_leaderboard", "asia_game", "asia_leaderboard", "africa_game", "africa_leaderboard", "europe_game", "europe_leaderboard"]
+POSITIONX = [SCREEN_WIDTH * 0.75, SCREEN_WIDTH * 0.75 + 190]
+POSITIONY = [SCREEN_HEIGHT * .9, SCREEN_HEIGHT * .9, SCREEN_HEIGHT * .75, SCREEN_HEIGHT * .75, SCREEN_HEIGHT * .6, SCREEN_HEIGHT * .6,
+ SCREEN_HEIGHT * .45, SCREEN_HEIGHT * .45, SCREEN_HEIGHT * .3, SCREEN_HEIGHT * .3, SCREEN_HEIGHT * .15, SCREEN_HEIGHT * .15]
 BUTTON_IMAGE = ["new_game", "leaderboard"]
 
 class Button(arcade.Sprite):
@@ -53,7 +54,7 @@ class StartMenu(arcade.View):
         n = 0
         for button_value in BUTTON_VALUES:
             button = Button(button_value, n % 2)
-            button.position = POSITIONX[n], POSITIONY[n]
+            button.position = POSITIONX[n % 2], POSITIONY[n]
             self.button_sprite_list.append(button)
             n = n + 1
 
@@ -90,9 +91,10 @@ class StartMenu(arcade.View):
         if len(buttons) > 0:
             # set view to equal the button_name which is the same as the Class name for new view. Example: button_name = LeaderView
             view = buttons[0].button_name()
+            # if we click a game button we need to setup() the game before we show the view. This is NOT necessary if it is a leaderboard button view
             if buttons[0].button_name == NA_Game:
                 view.setup() 
-    
+        # show the view to the user
         self.window.show_view(view)
 
             # if buttons[0].button_name == 'north_america_leaderboard':
