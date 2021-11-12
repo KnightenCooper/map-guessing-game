@@ -47,6 +47,34 @@ class LeaderView(arcade.View):
         best_player3 = sorted_data.iat[2,0]
         best_score3 = sorted_data.iat[2,1]
 
+        # store the #4 best player and #1 best score
+        best_player4 = sorted_data.iat[3, 0]
+        best_score4 = sorted_data.iat[3, 1]
+
+        # store the #5 best player and #1 best score
+        best_player5 = sorted_data.iat[4, 0]
+        best_score5 = sorted_data.iat[4, 1]
+
+        # store the #6 best player and #1 best score
+        best_player6 = sorted_data.iat[5, 0]
+        best_score6 = sorted_data.iat[5, 1]
+
+        # store the #7 best player and #1 best score
+        best_player7 = sorted_data.iat[6, 0]
+        best_score7 = sorted_data.iat[6, 1]
+
+        # store the #8 best player and #1 best score
+        best_player8 = sorted_data.iat[7, 0]
+        best_score8 = sorted_data.iat[7, 1]
+
+        # store the #9 best player and #1 best score
+        best_player9 = sorted_data.iat[8, 0]
+        best_score9 = sorted_data.iat[8, 1]
+
+        # store the #10 best player and #1 best score
+        best_player10 = sorted_data.iat[9, 0]
+        best_score10 = sorted_data.iat[9, 1]
+
         #best_player = data[data.time == data.time.min()].get_loc()
         #idx = idx.get_loc(best_score)
         #best_player = get_name[data[0]]
