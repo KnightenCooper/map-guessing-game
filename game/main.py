@@ -17,6 +17,12 @@ def main():
     start_view = StartMenu()
     start_view.setup()
     window.show_view(start_view)
+    window.center_window()
+
+    # This is code for the music, it automatically stops playing when you close the window
+    music = arcade.load_sound("game/background.wav", True)
+    arcade.play_sound(music, 0.5, 0, True)
+
     arcade.run()
 
 main()

@@ -1,5 +1,9 @@
 import arcade
 
+
+# This file just holds the list of all of the countries for each continent, class is never constructed/initialized
+
+
 class Country():
 
     def __init__(self, map_img_path):

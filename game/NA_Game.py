@@ -36,7 +36,7 @@ class NA_Game(arcade.View):
         self.background_sprite = None
         self.black_square = None
         # make the background grey
-        arcade.set_background_color(arcade.color.CADET_GREY)
+        arcade.set_background_color(arcade.color.WHITE)
 
         #timer declarations
         self.total_time = 0.0
@@ -112,6 +112,7 @@ class NA_Game(arcade.View):
         # countries = arcade.get_sprites_at_point((x, y), self.country_list)
         countries = arcade.get_sprites_at_point((x, y), self.country_list)
 
+        # prints x and y coordinates of where the mouse was clicked
         print(x,y)
 
         # Have we clicked on a country?

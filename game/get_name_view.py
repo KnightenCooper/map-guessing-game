@@ -17,23 +17,11 @@ class GetNameView(arcade.View):
     def on_draw(self):
         arcade.start_render()
 
-        arcade.draw_text(self.output,
-                    1280/2 - 300,
-                    720/2,
-                    arcade.color.WHITE_SMOKE,
-                    font_size=20)
+        arcade.draw_text(self.output, 1280/2, 720/1.75, arcade.color.BLACK, font_size=20)
 
-        arcade.draw_text("Type name: ",
-            1280/3 - 300,
-            720/2,
-            arcade.color.WHITE_SMOKE,
-            font_size=20)
+        arcade.draw_text("Type name: ", 1280/2 - 150, 720/1.75, arcade.color.BLACK, font_size=20)
 
-        arcade.draw_text("Hit \"Enter\" when finished ",
-            1280/3 - 300,
-            720/2-200,
-            arcade.color.WHITE_SMOKE,
-            font_size=20)        
+        arcade.draw_text("Press \"Enter\" when finished", 1280/2 - 150, 720/2, arcade.color.BLACK, font_size=20)        
 
     def on_key_press(self, symbol,modifier):
         """ Whenever the user presses a letter add it to the output or remove a letter from output if user presses Backspace"""
