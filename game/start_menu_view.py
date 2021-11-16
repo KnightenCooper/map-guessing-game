@@ -6,11 +6,15 @@ from pathlib import Path
 from constants import SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_TITLE
 from leaderboard import LeaderView
 from NA_Game import NA_Game
+from SA_Game import SA_Game
+from EU_Game import EU_Game
+from ASIA_Game import ASIA_Game
+from AFRICA_Game import AFRICA_Game
 
 
 # button values. The BUTTON_VALUES needs to match the class name for buttons to work
-BUTTON_VALUES = [NA_Game, LeaderView, "south_america_game", "south_america_leaderboard", "asia_game", "asia_leaderboard", "africa_game", "africa_leaderboard", "europe_game", "europe_leaderboard"]
-POSITIONX = [SCREEN_WIDTH * 0.75, SCREEN_WIDTH * 0.75 + 190]
+BUTTON_VALUES = [NA_Game, LeaderView, SA_Game, "south_america_leaderboard", ASIA_Game, "asia_leaderboard", AFRICA_Game, "africa_leaderboard", EU_Game, "europe_leaderboard"]
+POSITIONX = [SCREEN_WIDTH * 0.5, SCREEN_WIDTH * 0.5 + 190]
 POSITIONY = [SCREEN_HEIGHT * .75, SCREEN_HEIGHT * .75, SCREEN_HEIGHT * .6, SCREEN_HEIGHT * .6, SCREEN_HEIGHT * .45, SCREEN_HEIGHT * .45,
  SCREEN_HEIGHT * .3, SCREEN_HEIGHT * .3, SCREEN_HEIGHT * .15, SCREEN_HEIGHT * .15]
 BUTTON_IMAGE = ["new_game", "leaderboard"]
@@ -39,8 +43,8 @@ class StartMenu(arcade.View):
 
         # Sprite list with all the buttons
         self.button_sprite_list = None
-        # make the background WHITE_SMOKE
-        arcade.set_background_color(arcade.color.WARM_BLACK)
+        # set the background color
+        arcade.set_background_color(arcade.color.BLACK)
 
 
     def setup(self):
@@ -61,7 +65,7 @@ class StartMenu(arcade.View):
     def draw_country_label(text, height):
         """ draw the text labels for the countries onto the screen"""
         arcade.draw_text(text,
-                    SCREEN_WIDTH * 0.75 - 230,
+                    SCREEN_WIDTH * 0.5 - 230,
                     SCREEN_HEIGHT * height -20,
                     arcade.color.WHITE_SMOKE,
                     font_size=30,
@@ -89,7 +93,7 @@ class StartMenu(arcade.View):
         # loop through the array and draw the text onto the start menu screen based on the values in the array
         for country in country_labels:
             StartMenu.draw_country_label(country[0], country[1])
-        StartMenu.draw_title(" - Game Title Goes Here -", 0.9)
+        StartMenu.draw_title("- Map Guessing Game -", 0.9)
 
     def on_mouse_press(self, x, y, button, key_modifiers):
         """ Called when the user presses a mouse button. """
@@ -101,9 +105,19 @@ class StartMenu(arcade.View):
         if len(buttons) > 0:
             # set view to equal the button_name which is the same as the Class name for new view. Example: button_name = LeaderView
             view = buttons[0].button_name()
+
             # if we click a game button we need to setup() the game before we show the view. This is NOT necessary if it is a leaderboard button view
             if buttons[0].button_name == NA_Game:
+                view.setup()
+            elif buttons[0].button_name == SA_Game:
+                view.setup()
+            elif buttons[0].button_name == ASIA_Game:
                 view.setup() 
+            elif buttons[0].button_name == AFRICA_Game:
+                view.setup()
+            elif buttons[0].button_name == EU_Game:
+                view.setup()  
+   
         # show the view to the user
         self.window.show_view(view)
 

@@ -10,22 +10,31 @@ import csv
 from get_name_view import GetNameView
 
 
-class NA_Game(arcade.View):
+class ASIA_Game(arcade.View):
 
     def __init__(self):
         super().__init__()
         # Start a strike total. Increase it by one at each incorrect answer. When strike reaches three, go to the else statement.
         self.strike = 0
 
-        # list of countries         1             2         3        4       5            6                   7          8           9    
-        self.NA_countries = ["United States", "Canada", "Mexico", "Cuba", "Haiti", "Dominican Republic", "Jamaica", "Guatemala", "Belize", 
-        "El Salvador", "Honduras", "Nicaragua", "Costa Rica", "Panama"]
-        #    10            11          12            13          14
+        # list of countries       1           2         3          4            5           6              7           8        9        10            11
+        self.ASIA_countries = ["Russia", "Mongolia", "China", "Kazakhstan", "Turkey", "North Korea", "South Korea", "Japan", "India", "Myanmar", "Saudi Arabia", 
+        #  12        13           14           15             16         17         18         19          20             21             22            23
+         "Iran", "Indonesia", "Malaysia", "Philippines", "Singapore", "Taiwan", "Georgia", "Armenia", "Azerbaijan", "Turkmenistan", "Uzbekistan", "Kyrgyzstan", 
+        #     24          25        26        27        28        29       30          31          32         33        34            35                 36 
+         "Tajikistan", "Cyprus", "Syria", "Lebanon", "Israel", "Jordan", "Iraq", "Afghanistan", "Kuwait", "Bahrain", "Qatar", "United Arab Emirates", "Yemen", 
+        #  37        38         39       40          41          42          43        44         45
+         "Oman", "Pakistan", "Nepal", "Bhutan", "Bangladesh", "Sri Lanka", "Laos", "Vietnam", "Cambodia"]
 
-        #                           1    2    3    4      5     6     7    8     9    10   11    12    13    14
-        self.square_positions_x = [930, 870, 910, 1125, 1175, 1220, 1190, 890, 1070, 940, 1100, 1130, 1020, 1200]
-        self.square_positions_y = [290, 460, 150, 215, 220, 205, 110, 70, 130, 35, 110, 90, 30, 60]
-        #                           1    2    3    4    5    6    7    8    9  10   11  12  13  14
+        #                           1    2    3    4    5    6    7    8    9    10   11   12   13   14   15   16   17   18   19   20   21   22   23   24
+        self.square_positions_x = [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100,
+        # 25   26   27   28   29   30   31   32   33   34   35   36   37   38   39   40   41   42   43   44   45
+         100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
+
+        #                           1    2    3    4    5    6    7    8    9    10   11   12   13   14   15   16   17   18   19   20   21   22   23   24
+        self.square_positions_y = [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100,
+        # 25   26   27   28   29   30   31   32   33   34   35   36   37   38   39   40   41   42   43   44   45
+         100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
 
         # Lists that keep track of each sprite in it
         self.square_list = None
@@ -34,7 +43,8 @@ class NA_Game(arcade.View):
         # separate background image sprite
         self.background_sprite = None
         self.black_square = None
-        # make the background grey
+
+        # make the background white
         arcade.set_background_color(arcade.color.WHITE)
 
         #timer declarations
@@ -42,13 +52,12 @@ class NA_Game(arcade.View):
         self.output = "00:00:00"
 
         # store country for display
-        # (I REMOVED -1 AFTER len(self.NA_countries))
-        self.display_country = self.NA_countries[random.randrange(0, (len(self.NA_countries)))]
+        self.display_country = self.ASIA_countries[random.randrange(0, (len(self.ASIA_countries)))]
             
     def setup(self):
         """ get the game set up and ready to play by creating background and clickable icons """
-        # self.background = arcade.load_texture("assets/NA-template.png")
-        self.background_img_path = str(Path(__file__).parent.resolve()) + f"\\assets\\NA-template.png"
+
+        self.background_img_path = str(Path(__file__).parent.resolve()) + f"\\assets\\ASIA-template.png"
         self.square_img_path = str(Path(__file__).parent.resolve()) + f"\\assets\\black-square.png"
 
         self.background_list = arcade.SpriteList()
@@ -62,7 +71,7 @@ class NA_Game(arcade.View):
         # Create every country icon by looping through the list, n is used to also loop through each countries' icons location by getting the x and y values
         # This creates the buttons that will be used for the user to click and guess
         n = 0
-        for country_value in self.NA_countries:
+        for country_value in self.ASIA_countries:
             country = CountryClickableIcons(country_value)
             country.position = self.square_positions_x[n], self.square_positions_y[n]
             self.country_list.append(country)
@@ -73,13 +82,13 @@ class NA_Game(arcade.View):
     def new_random_country(self):
         """ Delete the current country from the list and select a new random country"""
         # remove current country
-        self.NA_countries.remove(self.display_country)
+        self.ASIA_countries.remove(self.display_country)
         # if there is at least one value then get a new random country
-        if len(self.NA_countries) > 1:
-            self.display_country = self.NA_countries[random.randrange(0, (len(self.NA_countries)))]
+        if len(self.ASIA_countries) > 1:
+            self.display_country = self.ASIA_countries[random.randrange(0, (len(self.ASIA_countries)))]
         # if there is only one value then use that value
-        if len(self.NA_countries) == 1:
-            self.display_country = self.NA_countries[0]
+        if len(self.ASIA_countries) == 1:
+            self.display_country = self.ASIA_countries[0]
 
     def on_draw(self):
         """
@@ -96,7 +105,7 @@ class NA_Game(arcade.View):
         arcade.draw_text(self.display_country, 10, 570, arcade.color.BLACK, 40)
 
         # Render the text that tells user which continent they are looking at
-        arcade.draw_text("North America", 10, 670, arcade.color.BLACK, 40)
+        arcade.draw_text("Asia", 10, 670, arcade.color.BLACK, 40)
 
         # draws the timer
         arcade.draw_text(self.output,
@@ -127,7 +136,7 @@ class NA_Game(arcade.View):
             # if the country clicked is the correct answer then move onto the next country and make the icon green 
             if countries[0].country_name == correct_answer:
                 # move onto the next country and update what country is shown
-                NA_Game.new_random_country(self)
+                ASIA_Game.new_random_country(self)
                 # make the country green
                 right = arcade.Sprite(str(Path(__file__).parent.resolve()) +"\\assets\\green-square.png")
                 right.position = countries[0].position
@@ -137,7 +146,7 @@ class NA_Game(arcade.View):
                 
             # if it is the wrong guess then we make the icon red, increase the strike counter, and see if the user is out of guesses
             # if asset is not green then do this
-            elif countries[0].country_name in self.NA_countries :
+            elif countries[0].country_name in self.ASIA_countries :
                 self.strike += 1
                 wrong = arcade.Sprite(str(Path(__file__).parent.resolve()) +"\\assets\\red-square.png")
                 wrong.position = countries[0].position
@@ -152,7 +161,7 @@ class NA_Game(arcade.View):
 
 
             # if the user has attempted to guess all possible countries then we get their name and log their score into the leaderboard
-            if len(self.NA_countries) == 0:
+            if len(self.ASIA_countries) == 0:
 
 
 
@@ -176,6 +185,7 @@ class NA_Game(arcade.View):
                 #takes you to the leaderboard
                 # instruction = LeaderView() 
                 # self.window.show_view(instruction)
+
     #logic for the timer
     def on_update(self, delta_time):
 

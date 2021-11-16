@@ -1,4 +1,3 @@
-
 # Importing arcade module
 import arcade
 import constants
@@ -23,7 +22,7 @@ class GetNameView(arcade.View):
 
         arcade.draw_text("Press \"Enter\" when finished", 1280/2 - 150, 720/2, arcade.color.BLACK, font_size=20)        
 
-    def on_key_press(self, symbol,modifier):
+    def on_key_press(self, symbol, modifier):
         """ Whenever the user presses a letter add it to the output or remove a letter from output if user presses Backspace"""
 
         # Checking the button pressed by looping through this array of the alphabet
