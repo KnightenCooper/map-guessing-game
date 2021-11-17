@@ -19,8 +19,8 @@ class AFRICA_Game(arcade.View):
 
         # list of countries          1          2          3         4        5             6               7         8        9       10       11        12
         self.AFRICA_countries = ["Morocco", "Algeria", "Tunisia", "Libya", "Egypt", "Western Sahara", "Mauritania", "Mali", "Niger", "Chad", "Sudan", "Eritrea",
-        #    13        14           15            16           17           18             19            20        21      22       23        24         25
-         "Senegal", "Gambia", "Guinea-Bissau", "Guinea", "Sierra Leone", "Liberia", "Cote d'lvoire", "Burkina", "Ghana", "Togo", "Benin", "Nigeria", "Cameroon",
+        #    13          14             15            16           17           18             19               20          21      22       23        24         25
+         "Senegal", "The Gambia", "Guinea-Bissau", "Guinea", "Sierra Leone", "Liberia", "Cote d'lvoire", "Burkina Faso", "Ghana", "Togo", "Benin", "Nigeria", "Cameroon",
         #             26                  27            28          29          30             31              32              33                             34
          "Central African Republic", "South Sudan", "Djibouti", "Ethiopia", "Somalia", "Equatorial Guinea", "Gabon", "Republic of the Congo", "Democratic Republic of the Congo",
         #   35        36        37       38          39         40        41        42          43           44          45         46            47
@@ -29,14 +29,14 @@ class AFRICA_Game(arcade.View):
          "Lesotho", "Eswatini", "Madagascar", "Sao Tome and Principe"]
 
         #                           1    2    3    4     5    6    7    8    9    10   11    12    13   14   15   16   17   18   19   20   21   22   23   24
-        self.square_positions_x = [732, 807, 909, 934, 1038, 594, 701, 773, 871, 943, 1042, 1145, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100,
-        # 25   26   27   28   29   30   31   32   33   34   35   36   37   38   39   40   41   42   43   44   45   46   47   48   49   50   51
-         100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
+        self.square_positions_x = [732, 807, 909, 934, 1038, 594, 701, 773, 871, 943, 1042, 1145, 590, 495, 534, 580, 628, 678, 739, 701, 752, 788, 824, 853,
+        # 25   26   27    28    29    30    31   32   33   34   35    36    37    38    39    40   41    42    43    44    45   46   47   48    49    50    51
+         891, 969, 1044, 1185, 1121, 1242, 756, 764, 851, 986, 1243, 1108, 1213, 1172, 1085, 935, 1008, 1117, 1110, 1041, 930, 991, 980, 1101, 1136, 1183, 747]
 
         #                           1    2    3    4    5    6    7    8    9    10   11   12   13   14   15   16   17   18   19   20   21   22   23   24
-        self.square_positions_y = [632, 595, 685, 588, 580, 578, 520, 508, 502, 479, 487, 559, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100,
-        # 25   26   27   28   29   30   31   32   33   34   35   36   37   38   39   40   41   42   43   44   45   46   47   48   49   50   51
-         100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
+        self.square_positions_y = [632, 595, 685, 588, 580, 578, 520, 508, 502, 479, 487, 559, 479, 469, 430, 404, 367, 339, 411, 248, 340, 338, 374, 427,
+        # 25   26   27   28   29   30   31   32   33   34   35   36   37   38   39   40   41   42   43   44   45   46  47  48   49   50   51
+         384, 404, 406, 531, 418, 508, 223, 160, 108, 329, 393, 349, 301, 283, 284, 240, 219, 157, 224, 183, 160, 157, 77, 60, 104, 187, 275]
 
         # Lists that keep track of each sprite in it
         self.square_list = None
