@@ -176,6 +176,7 @@ class NA_Game(arcade.View):
                 #takes you to the leaderboard
                 # instruction = LeaderView() 
                 # self.window.show_view(instruction)
+                
     #logic for the timer
     def on_update(self, delta_time):
 
@@ -183,9 +184,9 @@ class NA_Game(arcade.View):
 
         minutes = int(self.total_time) // 60
         seconds = int(self.total_time) % 60
-        seconds_100s = int((self.total_time - seconds) * 100)
+        hundredths = int(((self.total_time - seconds) % 60) * 100)
 
-        self.output = f"{minutes:02d}:{seconds:02d}:{seconds_100s:02d}"
+        self.output = f"{minutes:02d}:{seconds:02d}:{hundredths:02d}"
 
     def on_key_press(self, symbol: arcade.key.ESCAPE, modifiers):
         pyglet.app.exit()
