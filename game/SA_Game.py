@@ -22,10 +22,10 @@ class SA_Game(arcade.View):
          "Uruguay", "Paraguay"]
         #   12          13
 
-        #                           1    2    3    4    5    6    7    8    9    10   11   12   13  
-        self.square_positions_x = [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
-        self.square_positions_y = [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
-        #                           1    2    3    4    5    6    7    8    9    10   11   12   13  
+        #                           1    2    3     4    5     6    7    8    9    10   11   12   13  
+        self.square_positions_x = [850, 921, 987, 1040, 1115, 698, 840, 945, 1063, 855, 968, 1119, 1172]
+        self.square_positions_y = [590, 626, 696,  684,  663, 542, 466, 401,  475, 299, 234,  187, 292]
+        #                           1    2    3    4    5    6      7    8     9    10   11   12   13  
 
         # Lists that keep track of each sprite in it
         self.square_list = None
