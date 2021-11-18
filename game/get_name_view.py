@@ -5,6 +5,7 @@ from arcade.key import BACKSPACE
 from pathlib import Path
 import csv
 from leaderboard import LeaderView
+import NA_Game
 
 # Creating MainGame class       
 class GetNameView(arcade.View):
@@ -45,14 +46,14 @@ class GetNameView(arcade.View):
         if symbol == arcade.key.ENTER:
                 # set name to be same as user inputted name
                 name = self.output
-
+               
 
                 # IMPORTANT
                 """ the time is hardcoded as 999999999999999 and needs to be the actual time """
                 # IMPORTANT
 
 
-                rows = [name , 9999999999999999999999999]
+                rows = [name , NA_Game.NA_Game().final_time]
 
                 #sets the filename equal to a variable
                 filename = (str(Path(__file__).parent.resolve()) + "\\leaderboard.csv")

@@ -40,6 +40,7 @@ class NA_Game(arcade.View):
         #timer declarations
         self.total_time = 0.0
         self.output = "00:00:00"
+        self.final_time = ''
 
         # store country for display
         # (I REMOVED -1 AFTER len(self.NA_countries))
@@ -168,10 +169,16 @@ class NA_Game(arcade.View):
                 #     csvwriter = csv.writer(csvfile)
                 #     csvwriter.writerow(rows)
                 #     print(rows)
-                
+
                 # Takes you to get your name
+                
+
+                self.final_time = self.output   
+                print(self.final_time)
+
                 view = GetNameView()
                 self.window.show_view(view)
+
 
                 #takes you to the leaderboard
                 # instruction = LeaderView() 
@@ -190,6 +197,9 @@ class NA_Game(arcade.View):
 
     def on_key_press(self, symbol: arcade.key.ESCAPE, modifiers):
         pyglet.app.exit()
+
+
+
 
 
 # Sources:
