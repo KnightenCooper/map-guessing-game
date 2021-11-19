@@ -14,8 +14,8 @@ class AFRICA_Game(arcade.View):
 
     def __init__(self):
         super().__init__()
-        # Start a strike total. Increase it by one at each incorrect answer. When strike reaches three, go to the else statement.
-        self.strike = 0
+        # Start a streak total. Increase it by one at each incorrect answer. When streak reaches three, go to the else statement.
+        self.streak = 0
 
         # list of countries          1          2          3         4        5             6               7         8        9       10       11        12
         self.AFRICA_countries = ["Morocco", "Algeria", "Tunisia", "Libya", "Egypt", "Western Sahara", "Mauritania", "Mali", "Niger", "Chad", "Sudan", "Eritrea",
@@ -137,29 +137,41 @@ class AFRICA_Game(arcade.View):
             
             # if the country clicked is the correct answer then move onto the next country and make the icon green 
             if countries[0].country_name == correct_answer:
+                #increase streak if right
+                self.streak += 1
+                if (self.streak == 3):
+                    # reset streaks
+                    self.streak = 0
+                    tada_sound = arcade.load_sound(str(Path(__file__).parent.resolve()) +"\\\\assets\\tada.mp3")
+                    arcade.play_sound(tada_sound, 0.5)
+                # play positive sound if right 
+                else:
+                    correct_sound = arcade.load_sound(str(Path(__file__).parent.resolve()) +"\\assets\\correct.mp3")
+                    arcade.play_sound(correct_sound, 0.5)
                 # move onto the next country and update what country is shown
                 AFRICA_Game.new_random_country(self)
                 # make the country green
                 right = arcade.Sprite(str(Path(__file__).parent.resolve()) +"\\assets\\green-square.png")
                 right.position = countries[0].position
                 self.country_list.append(right)
-                # rest strikes
-                self.strike = 0
+
                 
-            # if it is the wrong guess then we make the icon red, increase the strike counter, and see if the user is out of guesses
+            # if it is the wrong guess then we make the icon red, increase the streak counter, and see if the user is out of guesses
             # if asset is not green then do this
             elif countries[0].country_name in self.AFRICA_countries :
-                self.strike += 1
+                # reset streaks
+                self.streak = 0
+                
                 wrong = arcade.Sprite(str(Path(__file__).parent.resolve()) +"\\assets\\red-square.png")
                 wrong.position = countries[0].position
                 self.country_list.append(wrong)
-                # if the user has made 3 guesses then we reset the strike counter and move onto the next country
+                # if the user has made 3 guesses then we reset the streak counter and move onto the next country
                 
 
-                # if self.strike == 3:
-                #     self.strike = 0
+                # if self.streak == 3:
+                #     self.streak = 0
                 #     # move onto the next country and update what country is shown
-                #     NA_Game.new_random_country(self)
+                #     AFRICA_Game.new_random_country(self)
 
 
             # if the user has attempted to guess all possible countries then we get their name and log their score into the leaderboard
