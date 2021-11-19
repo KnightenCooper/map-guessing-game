@@ -180,7 +180,7 @@ class EU_Game(arcade.View):
                 #     print(rows)
                 
                 # Takes you to get your name
-                view = GetNameView()
+                view = GetNameView(self.output, "\\EU_leaderboard.csv")
                 self.window.show_view(view)
 
                 #takes you to the leaderboard

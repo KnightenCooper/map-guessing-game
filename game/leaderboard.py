@@ -2,32 +2,65 @@ import arcade
 import constants
 import pandas as pd
 from pathlib import Path
-
+#from start_menu_view import StartMenu
 from arcade.gui import UIManager
+
+
 
 class LeaderView(arcade.View):
     """ TESTING PURPOSES ONLY... this class creates a page that says 
     Congrats! You've successfully reached the leaderboard page!!"""
 
-    def __init__(self):
-        """ TESTING PURPOSES ONLY...the class constructor."""   
+    def __init__(self, filePath):
+        """ TESTING PURPOSES ONLY...the class constructor.""" 
+        self.filePath = filePath  
         super().__init__()
+        
+        # # code for the button
+        # self.manager = arcade.gui.UIManager()
+        # self.manager.enable()
+        # # Create a vertical BoxGroup to align buttons
+        # self.v_box = arcade.gui.UIBoxLayout()
+
+        # # Create the button
+        # start_button = arcade.gui.UIFlatButton(text="Return to Menu", width=200)
+        # self.v_box.add(start_button.with_space_around(bottom=20))
+
+        # # assign self.on_click_start as callback
+        # start_button.on_click = self.on_click_start
+        
+        # # Create a widget to hold the v_box widget, that will center the buttons
+        # self.manager.add(
+        #     arcade.gui.UIAnchorWidget(
+        #         anchor_x="center_x",
+        #         anchor_y="center_y",
+        #         child=self.v_box)
+        # )
 
     def on_show(self):
         """ TESTING PURPOSES ONLY...sets the background color of the instruction menu."""   
         arcade.set_background_color(arcade.color.BLACK)
+
+    # def on_click_start(self, event):
+    #     """ When button is clicked do this"""
+    #     print('you clicked button')
+    #     # view = StartMenu()
+    #     # self.window.show_view(view)
 
     def on_draw(self):
         """TESTING PURPOSES ONLY... creates the view for the instruction menu."""
         start_x = 50
         start_y = 400
         arcade.start_render()
+        #button
+        #self.manager.draw()
+
         arcade.draw_text("LEADERBOARD",start_x, start_y,
                          arcade.color.RED,
                          font_size=30,
                          anchor_x="left", anchor_y="top")
         # Read the csv file and get the fastest time
-        filename = (str(Path(__file__).parent.resolve()) + "\\leaderboard.csv")
+        filename = (str(Path(__file__).parent.resolve()) + self.filePath)
         # store the csv file into data
         data = pd.read_csv(filename)
         # best_score = data.time.min()

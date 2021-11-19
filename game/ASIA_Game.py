@@ -23,18 +23,18 @@ class ASIA_Game(arcade.View):
          "Iran", "Indonesia", "Malaysia", "Philippines", "Singapore", "Taiwan", "Georgia", "Armenia", "Azerbaijan", "Turkmenistan", "Uzbekistan", "Kyrgyzstan", 
         #     24          25        26        27        28        29       30          31          32         33        34            35                 36 
          "Tajikistan", "Cyprus", "Syria", "Lebanon", "Israel", "Jordan", "Iraq", "Afghanistan", "Kuwait", "Bahrain", "Qatar", "United Arab Emirates", "Yemen", 
-        #  37        38         39       40          41          42          43        44         45
-         "Oman", "Pakistan", "Nepal", "Bhutan", "Bangladesh", "Sri Lanka", "Laos", "Vietnam", "Cambodia"]
+        #  37        38         39       40          41          42          43        44         45          46
+         "Oman", "Pakistan", "Nepal", "Bhutan", "Bangladesh", "Sri Lanka", "Laos", "Vietnam", "Cambodia", "Thailand"]
 
-        #                           1    2    3    4    5    6    7    8    9    10   11   12   13   14   15   16   17   18   19   20   21   22   23   24
-        self.square_positions_x = [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100,
-        # 25   26   27   28   29   30   31   32   33   34   35   36   37   38   39   40   41   42   43   44   45
-         100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
+        #                           1    2    3    4    5    6    7   nn 8    9   10   11   12   13   14   15   16    17   18   19   20    21   22   23   24
+        self.square_positions_x = [818, 865, 894, 699, 515, 999, 1005, 1067, 748, 838, 555, 619, 927, 921, 979, 791, 1016, 544, 577, 615, 637, 668, 736, 792,
+        # 25   26   27   28   29  30   31   32    33   34   35   36   37   38   39   40   41   42   43    44   45   46
+         378, 407, 319, 378, 429, 489, 661, 493, 482, 516, 596, 577, 625, 697, 781, 820, 789, 741, 1151, 1089, 927, 816]
 
-        #                           1    2    3    4    5    6    7    8    9    10   11   12   13   14   15   16   17   18   19   20   21   22   23   24
-        self.square_positions_y = [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100,
-        # 25   26   27   28   29   30   31   32   33   34   35   36   37   38   39   40   41   42   43   44   45
-         100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
+        #                           1    2    3    4    5    6    7    8    9   10   11   12   13   14   15   16   17   18   19    20   21   22   23   24
+        self.square_positions_y = [542, 438, 339, 446, 391, 400, 370, 370, 284, 273, 282, 341, 122, 164, 205, 106, 289, 505, 536, 547, 500, 534, 516, 394,
+        # 25   26   27   28   29  30   31   32    33   34   35   36   37   38   39   40   41   42   43   44   45   46
+         379, 425, 328, 298, 244, 461, 225, 275, 147, 133, 152, 197, 194, 154, 350, 366, 218, 132, 228, 258, 215, 184]
 
         # Lists that keep track of each sprite in it
         self.square_list = None
@@ -179,7 +179,7 @@ class ASIA_Game(arcade.View):
                 #     print(rows)
                 
                 # Takes you to get your name
-                view = GetNameView()
+                view = GetNameView(self.output, "\\ASIA_leaderboard.csv")
                 self.window.show_view(view)
 
                 #takes you to the leaderboard

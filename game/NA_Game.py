@@ -176,7 +176,8 @@ class NA_Game(arcade.View):
                 self.final_time = self.output   
                 print(self.final_time)
 
-                view = GetNameView()
+                #self.final_time passes the user's score time and the filepath will add the time to correct .csv file
+                view = GetNameView(self.output, "\\NA_leaderboard.csv")
                 self.window.show_view(view)
 
 

@@ -9,8 +9,10 @@ import NA_Game
 
 # Creating MainGame class       
 class GetNameView(arcade.View):
-    def __init__(self):
+    def __init__(self, time, filePath):
         self.output = ""
+        self.time = time
+        self.filePath = filePath
         super().__init__()
   
     # Creating on_draw() function to draw on the screen
@@ -46,17 +48,12 @@ class GetNameView(arcade.View):
         if symbol == arcade.key.ENTER:
                 # set name to be same as user inputted name
                 name = self.output
-               
 
-                # IMPORTANT
-                """ the time is hardcoded as 999999999999999 and needs to be the actual time """
-                # IMPORTANT
-
-
-                rows = [name , NA_Game.NA_Game().final_time]
+                # rows = [name , NA_Game.NA_Game().final_time]
+                rows = [name , self.time]
 
                 #sets the filename equal to a variable
-                filename = (str(Path(__file__).parent.resolve()) + "\\leaderboard.csv")
+                filename = (str(Path(__file__).parent.resolve()) + self.filePath)
 
                 #opens and appends the data to the file
                 with open(filename, 'a') as csvfile:
@@ -65,7 +62,7 @@ class GetNameView(arcade.View):
                     print(rows)
 
                 #takes you to the leaderboard
-                instruction = LeaderView() 
+                instruction = LeaderView(self.filePath) 
                 self.window.show_view(instruction)
 
 # Sources:

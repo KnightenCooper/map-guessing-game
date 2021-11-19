@@ -13,11 +13,12 @@ from AFRICA_Game import AFRICA_Game
 
 
 # button values. The BUTTON_VALUES needs to match the class name for buttons to work
-BUTTON_VALUES = [NA_Game, LeaderView, SA_Game, "south_america_leaderboard", ASIA_Game, "asia_leaderboard", AFRICA_Game, "africa_leaderboard", EU_Game, "europe_leaderboard"]
+BUTTON_VALUES = [NA_Game, LeaderView, SA_Game, LeaderView, ASIA_Game, LeaderView, AFRICA_Game, LeaderView, EU_Game, LeaderView]
 POSITIONX = [SCREEN_WIDTH * 0.5, SCREEN_WIDTH * 0.5 + 190]
 POSITIONY = [SCREEN_HEIGHT * .75, SCREEN_HEIGHT * .75, SCREEN_HEIGHT * .6, SCREEN_HEIGHT * .6, SCREEN_HEIGHT * .45, SCREEN_HEIGHT * .45,
  SCREEN_HEIGHT * .3, SCREEN_HEIGHT * .3, SCREEN_HEIGHT * .15, SCREEN_HEIGHT * .15]
 BUTTON_IMAGE = ["new_game", "leaderboard"]
+BUTTON_LEADERBOARD_FILE_PATH = ["","\\NA_leaderboard.csv","","\\SA_leaderboard.csv","","\\ASIA_leaderboard.csv","","\\AFRICA_leaderboard.csv","","\\EU_leaderboard.csv"]
 
 class Button(arcade.Sprite):
     """ button sprite """
@@ -30,7 +31,7 @@ class Button(arcade.Sprite):
         # The below line of code uses the button's name to automatically get the correct icon for Demo.
         #self.image_file_name = str(Path(__file__).parent.resolve()) + f"\\assets\\button\{self.button_name}.png"
         self.image_file_name = str(Path(__file__).parent.resolve()) + f"\\assets\\button\\{BUTTON_IMAGE[n]}.png"
-
+        self.leaderboard_file_path = ""
         # Call the parent
         super().__init__(self.image_file_name, scale=1, hit_box_algorithm="None")
 
@@ -59,6 +60,7 @@ class StartMenu(arcade.View):
         for button_value in BUTTON_VALUES:
             button = Button(button_value, n % 2)
             button.position = POSITIONX[n % 2], POSITIONY[n]
+            button.leaderboard_file_path = BUTTON_LEADERBOARD_FILE_PATH[n]
             self.button_sprite_list.append(button)
             n = n + 1
 
@@ -104,7 +106,11 @@ class StartMenu(arcade.View):
         # Have we clicked on a button?
         if len(buttons) > 0:
             # set view to equal the button_name which is the same as the Class name for new view. Example: button_name = LeaderView
-            view = buttons[0].button_name()
+            if buttons[0].button_name == LeaderView:
+                view = buttons[0].button_name(buttons[0].leaderboard_file_path)
+
+            else:
+                view = buttons[0].button_name()
 
             # if we click a game button we need to setup() the game before we show the view. This is NOT necessary if it is a leaderboard button view
             if buttons[0].button_name == NA_Game:
