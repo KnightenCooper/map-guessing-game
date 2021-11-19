@@ -13,6 +13,7 @@ class LeaderView(arcade.View):
 
     def __init__(self, filePath):
         """ TESTING PURPOSES ONLY...the class constructor.""" 
+        self.button_name = button_name
         self.filePath = filePath  
         super().__init__()
         
