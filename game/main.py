@@ -3,6 +3,7 @@ import arcade
 import constants
 from start_menu_view import StartMenu
 from leaderboard import LeaderView
+from pathlib import Path
 
 
 def main():
@@ -20,8 +21,8 @@ def main():
     window.center_window()
 
     # This is code for the music, it automatically stops playing when you close the window
-    music = arcade.load_sound("game/background.wav", True)
-    arcade.play_sound(music, 0.4, 0, True)
+    music = arcade.load_sound(str(Path(__file__).parent.resolve()) +"\\background.wav", True)
+    arcade.play_sound(music, 0.1, 0, True)
 
     arcade.run()
 
