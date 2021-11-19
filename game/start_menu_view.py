@@ -14,10 +14,14 @@ from AFRICA_Game import AFRICA_Game
 
 # button values. The BUTTON_VALUES needs to match the class name for buttons to work
 BUTTON_VALUES = [NA_Game, LeaderView, SA_Game, LeaderView, ASIA_Game, LeaderView, AFRICA_Game, LeaderView, EU_Game, LeaderView]
+# x position for buttons
 POSITIONX = [SCREEN_WIDTH * 0.5, SCREEN_WIDTH * 0.5 + 190]
+# y position for buttons
 POSITIONY = [SCREEN_HEIGHT * .75, SCREEN_HEIGHT * .75, SCREEN_HEIGHT * .6, SCREEN_HEIGHT * .6, SCREEN_HEIGHT * .45, SCREEN_HEIGHT * .45,
  SCREEN_HEIGHT * .3, SCREEN_HEIGHT * .3, SCREEN_HEIGHT * .15, SCREEN_HEIGHT * .15]
+# which image button will use
 BUTTON_IMAGE = ["new_game", "leaderboard"]
+# path to correct leaderboard.csv file for each button
 BUTTON_LEADERBOARD_FILE_PATH = ["","\\NA_leaderboard.csv","","\\SA_leaderboard.csv","","\\ASIA_leaderboard.csv","","\\AFRICA_leaderboard.csv","","\\EU_leaderboard.csv"]
 
 class Button(arcade.Sprite):
@@ -28,8 +32,7 @@ class Button(arcade.Sprite):
 
         # This button_name will represent the button and be its name, This is important when we determine if the user clicked the right button
         self.button_name = button_name
-        # The below line of code uses the button's name to automatically get the correct icon for Demo.
-        #self.image_file_name = str(Path(__file__).parent.resolve()) + f"\\assets\\button\{self.button_name}.png"
+        # The below line of code alternates between 'new_game' image and 'leaderboard' image.
         self.image_file_name = str(Path(__file__).parent.resolve()) + f"\\assets\\button\\{BUTTON_IMAGE[n]}.png"
         self.leaderboard_file_path = ""
         # Call the parent
@@ -37,7 +40,8 @@ class Button(arcade.Sprite):
 
 
 class StartMenu(arcade.View):
-    """ Main application class. """
+    """ Main application class. This view displays continent titles and clickable 'new game' and 'leaderboard'
+    buttons for each continent """
 
     def __init__(self):
         super().__init__()
@@ -65,7 +69,7 @@ class StartMenu(arcade.View):
             n = n + 1
 
     def draw_country_label(text, height):
-        """ draw the text labels for the countries onto the screen"""
+        """ draw text labels for the continents onto the screen"""
         arcade.draw_text(text,
                     SCREEN_WIDTH * 0.5 - 230,
                     SCREEN_HEIGHT * height -20,
@@ -74,7 +78,7 @@ class StartMenu(arcade.View):
                     anchor_x="center")
 
     def draw_title(text, height):
-        """ draw the text labels for the game's title"""
+        """ draw the text label for the game's title"""
         arcade.draw_text(text,
                     SCREEN_WIDTH * 0.5,
                     SCREEN_HEIGHT * height -20,
@@ -95,6 +99,7 @@ class StartMenu(arcade.View):
         # loop through the array and draw the text onto the start menu screen based on the values in the array
         for country in country_labels:
             StartMenu.draw_country_label(country[0], country[1])
+        # draw the title
         StartMenu.draw_title("- Map Guessing Game -", 0.9)
 
     def on_mouse_press(self, x, y, button, key_modifiers):
@@ -105,14 +110,20 @@ class StartMenu(arcade.View):
 
         # Have we clicked on a button?
         if len(buttons) > 0:
-            # set view to equal the button_name which is the same as the Class name for new view. Example: button_name = LeaderView
+            # set view to equal the button_name which is the same as the Class name for new view. 
+            # Example: button_name = LeaderView
+
+            #if the button is a leaderboard button do this
             if buttons[0].button_name == LeaderView:
+                # set the file path to match the button's leaderboard_file_path so the correct view is displayed
                 view = buttons[0].button_name(buttons[0].leaderboard_file_path)
 
+            #if the button is a 'new game' button do this
             else:
                 view = buttons[0].button_name()
 
-            # if we click a game button we need to setup() the game before we show the view. This is NOT necessary if it is a leaderboard button view
+            # if we click a game button we need to setup() the game before we show the view. 
+            # This is NOT necessary if it is a leaderboard button view
             if buttons[0].button_name == NA_Game:
                 view.setup()
             elif buttons[0].button_name == SA_Game:
@@ -126,26 +137,6 @@ class StartMenu(arcade.View):
    
         # show the view to the user
         self.window.show_view(view)
-
-            # if buttons[0].button_name == 'north_america_leaderboard':
-            #     print('You clicked sldkfj')
-            #     leader_view = LeaderView()
-            #     self.window.show_view(leader_view)
-
-         
-
-
-
-          
-# def main():
-#     """ Main function """
-#     window = MyGame()
-#     window.setup()
-#     arcade.run()
-
-
-# if __name__ == "__main__":
-#     main()
 
 # Source: 
 # https://api.arcade.academy/en/latest/tutorials/card_game/index.html
