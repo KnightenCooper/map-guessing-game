@@ -29,6 +29,7 @@ Other imports included:
 # Future Work
 
 {Make a list of things that you need to fix, improve, and add in the future.}
-* Item 1
-* Item 2
-* Item 3
+* Make the volume of the music adjustable
+* Add capital cities quiz
+* Color blind options that don't use red and green
+* Learning mode that tells you answer after 30 seconds
