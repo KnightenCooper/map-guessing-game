@@ -8,7 +8,7 @@ from pathlib import Path
 
 def main():
     """ the main function: compiles all code and runs the program. 
-    args: none.
+    args: none.-
     """
     window = arcade.Window(constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT, constants.SCREEN_TITLE, fullscreen=False)
     width, height = window.get_size()
