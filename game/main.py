@@ -27,8 +27,6 @@ def main():
     # This is code for the music, it automatically stops playing when you close the window
     # Background music is loaded as "music" and then played with a volume of 0.1, it automatically stops playing when you close the window
     music = arcade.load_sound(str(Path(__file__).parent.resolve()) +"\\background.wav", True)
-    arcade.play_sound(music, 0.1  , 0, True)
-
     arcade.play_sound(music, 0.1, 0, True)
     # starts running the game
     arcade.run()
