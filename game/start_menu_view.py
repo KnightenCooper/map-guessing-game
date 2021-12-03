@@ -135,8 +135,8 @@ class StartMenu(arcade.View):
             elif buttons[0].button_name == EU_Game:
                 view.setup()  
    
-        # show the view to the user
-        self.window.show_view(view)
+            # show the view to the user
+            self.window.show_view(view)
 
 # Source: 
 # https://api.arcade.academy/en/latest/tutorials/card_game/index.html

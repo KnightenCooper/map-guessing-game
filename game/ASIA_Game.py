@@ -68,6 +68,10 @@ class ASIA_Game(arcade.View):
 
         # Sprite list with each square for each country
         self.country_list = arcade.SpriteList()
+        # sprite list containing red squares
+        self.wrong_list = arcade.SpriteList()
+        # sprite list containing green squares
+        self.right_list = arcade.SpriteList()
 
         # Create every country icon by looping through the country list, n is used to also loop through each countries' icons location by getting the x and y values
         # This creates the buttons that will be used for the user to click and guess
@@ -106,8 +110,10 @@ class ASIA_Game(arcade.View):
         arcade.start_render()
         # draws the background map
         self.background_list.draw()
-        # draws each square
+        # draws each square for each list
         self.country_list.draw()
+        self.wrong_list.draw()
+        self.right_list.draw()
 
         # Render the text of the counrty that user should guess
         arcade.draw_text(self.display_country, 10, 570, arcade.color.BLACK, 40)
@@ -138,7 +144,7 @@ class ASIA_Game(arcade.View):
 
             # The correct is the country that is being displayed, this variable exists for code readability
             correct_answer = self.display_country
-            print(correct_answer)
+            print('Correct answer is ' + correct_answer)
             
             # if the country clicked is the correct answer then move onto the next country and make the icon green 
             if countries[0].country_name == correct_answer:
@@ -153,24 +159,26 @@ class ASIA_Game(arcade.View):
                 else:
                     correct_sound = arcade.load_sound(str(Path(__file__).parent.resolve()) +"\\assets\\correct.mp3")
                     arcade.play_sound(correct_sound, 0.5)
+
                 # move onto the next country and update what country is shown
                 ASIA_Game.new_random_country(self)
                 # makes the square green by creating a new green sprite over the black sprite with the same position and appends it to the sprite list to be rendered
                 right = arcade.Sprite(str(Path(__file__).parent.resolve()) +"\\assets\\green-square.png")
                 right.position = countries[0].position
-                self.country_list.append(right)
+                self.right_list.append(right)
+                # clears red squares if there are any
+                if len(self.wrong_list) > 0:
+                    self.wrong_list = arcade.SpriteList()
 
-                
-            # if it is the wrong guess then we make the icon red, reset the streak counter, and see if the user is out of guesses
-            # if guess is incorrect then we do this
+            # If the guess is incorrect, reset the streak, create red sprite and add it to the list
             elif countries[0].country_name in self.ASIA_countries :
                 # reset streaks
                 self.streak = 0
                 
-                # makes the square red by creating a new green sprite over the black sprite with the same position and appends it to the sprite list to be rendered
+                # creates a red square sprite and adds it to the respective sprite list
                 wrong = arcade.Sprite(str(Path(__file__).parent.resolve()) +"\\assets\\red-square.png")
                 wrong.position = countries[0].position
-                self.country_list.append(wrong)
+                self.wrong_list.append(wrong)
 
                 
                 # This is unimplemented but if you want the game skip to the next country after 3 wrong guesses then uncomment this
@@ -185,7 +193,7 @@ class ASIA_Game(arcade.View):
             if len(self.ASIA_countries) == 0:
 
                 # self.output passes the user's final time and the filepath will add the time to correct .csv file  
-                print(self.output)
+                print("Final time - " + self.output)
 
                 # Initializes GetNameView class and passes the final time and leaderboard file path, then shows the view for the leaderboard
                 view = GetNameView(self.output, "\\ASIA_leaderboard.csv")
@@ -213,9 +221,6 @@ class ASIA_Game(arcade.View):
         pyglet.app.exit()
 
 
-        
-
-
 # Sources:
 # https://arcade-pk.readthedocs.io/en/latest/examples/sprite_move_animation.html
 # https://api.arcade.academy/en/2.6.3/api/gui_widgets.html?highlight=button#arcade.gui.UITextureButton
@@ -241,4 +246,3 @@ class ASIA_Game(arcade.View):
 # https://github.com/KnightenCooper/game
 # https://api.arcade.academy/en/latest/arcade.color.html
 # https://api.arcade.academy/en/2.6.3/api/window.html?highlight=button#arcade.View.on_mouse_press
-
