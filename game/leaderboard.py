@@ -2,9 +2,22 @@ import arcade
 import constants
 import pandas as pd
 from pathlib import Path
-#from start_menu_view import StartMenu
 from arcade.gui import UIManager
 
+import start_menu_view
+
+class BackButton(arcade.Sprite):
+    """ Back Button sprite """
+    def __init__(self, button_name, scale=1):
+        """ BackButton constructor """
+
+        # This button_name will represent view we want to return to, in this case start menu
+        self.button_name = button_name
+        # path to image for button
+        self.image_file_name = str(Path(__file__).parent.resolve()) + f"\\assets\\button\\back_button.png"
+
+        # Call the parent
+        super().__init__(self.image_file_name, scale, hit_box_algorithm="None")
 
 
 class LeaderView(arcade.View):
@@ -14,48 +27,36 @@ class LeaderView(arcade.View):
     def __init__(self, filePath):
         """ TESTING PURPOSES ONLY...the class constructor.""" 
         
-        # self.button_name = button_name
         self.filePath = filePath  
         super().__init__()
-        
-        # # code for the button
-        # self.manager = arcade.gui.UIManager()
-        # self.manager.enable()
-        # # Create a vertical BoxGroup to align buttons
-        # self.v_box = arcade.gui.UIBoxLayout()
 
-        # # Create the button
-        # start_button = arcade.gui.UIFlatButton(text="Return to Menu", width=200)
-        # self.v_box.add(start_button.with_space_around(bottom=20))
+        # Sprite list with the back button
+        self.button_list = None
 
-        # # assign self.on_click_start as callback
-        # start_button.on_click = self.on_click_start
-        
-        # # Create a widget to hold the v_box widget, that will center the buttons
-        # self.manager.add(
-        #     arcade.gui.UIAnchorWidget(
-        #         anchor_x="center_x",
-        #         anchor_y="center_y",
-        #         child=self.v_box)
-        # )
+    def setup(self):
+        """ Set up the game here. Call this function to restart the game. """
+        # Sprite list with the back button
+        self.button_list = arcade.SpriteList()
+
+        # create back button
+        back_button = BackButton(start_menu_view.StartMenu)
+        back_button.position = 130, 100
+        self.button_list.append(back_button)
+
 
     def on_show(self):
         """ TESTING PURPOSES ONLY...sets the background color of the instruction menu."""   
         arcade.set_background_color(arcade.color.BLACK)
 
-    # def on_click_start(self, event):
-    #     """ When button is clicked do this"""
-    #     print('you clicked button')
-    #     # view = StartMenu()
-    #     # self.window.show_view(view)
-
     def on_draw(self):
         """TESTING PURPOSES ONLY... creates the view for the instruction menu."""
         start_x = 50
         start_y = 400
+        # Clear the screen
         arcade.start_render()
-        #button
-        #self.manager.draw()
+
+        # Draw the button
+        self.button_list.draw() 
 
         arcade.draw_text("LEADERBOARD",start_x, start_y,
                          arcade.color.RED,
@@ -110,27 +111,6 @@ class LeaderView(arcade.View):
         best_player10 = sorted_data.iat[9, 0]
         best_score10 = sorted_data.iat[9, 1]
 
-        #best_player = data[data.time == data.time.min()].get_loc()
-        #idx = idx.get_loc(best_score)
-        #best_player = get_name[data[0]]
-        #best_player = data['time'].min()[data['name']].selct_dtypes('number')
-
-        # get_name = data.set_index(['name', 'time']).select_dtypes('number')
-        #best_player = pd.Series(get_name)
-        # best_player = get_name.idxmin()
-
-        # arcade.draw_text(f'The best time is {best_score} by {best_player}, then next is {best_score2} by {best_player2}, then next is {best_score3} by {best_player3}',
-        #                  constants.SCREEN_HEIGHT/3,
-        #                  constants.SCREEN_WIDTH/4,
-        #                  arcade.color.WHITE_SMOKE,
-        #                  font_size=20)
-
-        # arcade.draw_text(f'#1 {best_score} by {best_player}, then next is {best_score2} by {best_player2}, then next is {best_score3} by {best_player3}',
-        #                  constants.SCREEN_HEIGHT/3,
-        #                  constants.SCREEN_WIDTH/4,
-        #                  arcade.color.WHITE_SMOKE,
-        #                  font_size=20)
-
         # store the best scores/players
         # first = f'#1 {best_score} by {best_player}' NOTE: for this entry I showed how you could code the answer directly into the scores array
         second = f'#2 {best_score2} by {best_player2}'
@@ -150,6 +130,22 @@ class LeaderView(arcade.View):
         for score in scores:
             LeaderView.draw_score(score[0], score[1])
 
+    def on_mouse_press(self, x, y, button, key_modifiers):
+        """ Called when the user presses a mouse button. """
+
+        # Get list of any sprites we've clicked on
+        sprites_clicked = arcade.get_sprites_at_point((x, y), self.button_list)
+
+        # Have we clicked on a sprite?
+        if len(sprites_clicked) > 0:
+            # set view to equal the button_name which is the same as the Class name for new view. 
+            # Example: button_name = LeaderView
+            view = sprites_clicked[0].button_name()
+            # we need to setup() the next view before we show the view so the buttons work
+            view.setup()  
+            # show the view to the user
+            self.window.show_view(view)
+         
     def draw_score(text, height):
         """ draw the text labels for the scores onto the screen"""
         arcade.draw_text(text,
@@ -158,22 +154,6 @@ class LeaderView(arcade.View):
                     arcade.color.WHITE_SMOKE,
                     font_size=15,
                     anchor_x="center")
-
-
-
-# filename = (str(Path(__file__).parent.resolve()) + "\\leaderboard.csv")
-# data = pd.read_csv(filename)
-# data.sort_values(by ="name", ascending=True)
-# print (data.sort_values(by ="time", ascending=True).head(10))
-
-
-
-
-# window = arcade.Window(constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT, constants.SCREEN_TITLE)
-# leader = LeaderView()
-# window.show_view(leader)
-# arcade.run()
-
 
 
 # Sources: 

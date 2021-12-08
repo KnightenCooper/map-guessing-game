@@ -63,8 +63,10 @@ class GetNameView(arcade.View):
 
                 #takes you to the leaderboard
                 instruction = LeaderView(self.filePath) 
+                # we need to setup() the next view before we show the view so the buttons work
+                instruction.setup()  
+                # show the view to the user
                 self.window.show_view(instruction)
-
 # Sources:
 # https://api.arcade.academy/en/latest/arcade.key.html
 # https://geekflare.com/python-remove-last-character/

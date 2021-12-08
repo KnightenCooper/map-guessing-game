@@ -185,10 +185,10 @@ class AFRICA_Game(arcade.View):
                 
                 # This is unimplemented but if you want the game skip to the next country after 3 wrong guesses then uncomment this
                 
-                # if self.streak == 3:
-                #     self.streak = 0
-                #     # move onto the next country and update what country is shown
-                #     AFRICA_Game.new_random_country(self)
+                if self.streak == 3:
+                    self.streak = 0
+                    # move onto the next country and update what country is shown
+                    AFRICA_Game.new_random_country(self)
 
 
             # if the user has guessed all of the countries then we get their name and log their score into the leaderboard

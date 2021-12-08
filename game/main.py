@@ -6,7 +6,6 @@ from leaderboard import LeaderView
 from pathlib import Path
 # library and class imports
 
-
 def main():
     """ the main function: compiles all code and runs the program. 
     args: none.

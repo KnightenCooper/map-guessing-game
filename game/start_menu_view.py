@@ -118,22 +118,12 @@ class StartMenu(arcade.View):
                 # set the file path to match the button's leaderboard_file_path so the correct view is displayed
                 view = buttons[0].button_name(buttons[0].leaderboard_file_path)
 
-            #if the button is a 'new game' button do this
+            # #if the button is a 'new game' button do this
             else:
                 view = buttons[0].button_name()
 
-            # if we click a game button we need to setup() the game before we show the view. 
-            # This is NOT necessary if it is a leaderboard button view
-            if buttons[0].button_name == NA_Game:
-                view.setup()
-            elif buttons[0].button_name == SA_Game:
-                view.setup()
-            elif buttons[0].button_name == ASIA_Game:
-                view.setup() 
-            elif buttons[0].button_name == AFRICA_Game:
-                view.setup()
-            elif buttons[0].button_name == EU_Game:
-                view.setup()  
+            # we need to setup() the next view before we show the view so the buttons work
+            view.setup()  
    
             # show the view to the user
             self.window.show_view(view)
