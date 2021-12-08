@@ -10,6 +10,7 @@ from get_name_view import GetNameView
 # library and class imports
 
 class SA_Game(arcade.View):
+    """ creates the south america game view """
 
     def __init__(self):
         super().__init__()
@@ -118,25 +119,19 @@ class SA_Game(arcade.View):
                          arcade.color.BLACK, 40,
                          anchor_x="center")
 
-
     def on_mouse_press(self, x, y, button, key_modifiers):
         """ Called when the user presses a mouse button. """
 
         # Get list of countries we've clicked on from the country sprite list
         countries = arcade.get_sprites_at_point((x, y), self.country_list)
-
-        # prints x and y coordinates of where the mouse was clicked
-        print(x,y)
+        # uncomment if you want to print x and y coordinates of where the mouse was clicked (useful for button placement)
+        # print(x,y)
 
         # Have we clicked on a country?
         if len(countries) > 0:
-            # print the name of the country clicked
-            print('You clicked ' + countries[0].country_name)
-
             # The correct is the country that is being displayed, this variable exists for code readability
             correct_answer = self.display_country
-            print('Correct answer is ' + correct_answer)
-            
+
             # if the country clicked is the correct answer then move onto the next country and make the icon green 
             if countries[0].country_name == correct_answer:
                 #increase streak if right
@@ -170,26 +165,14 @@ class SA_Game(arcade.View):
                 wrong = arcade.Sprite(str(Path(__file__).parent.resolve()) +"\\assets\\red-square.png")
                 wrong.position = countries[0].position
                 self.wrong_list.append(wrong)
-                
-
-                # This is unimplemented but if you want the game skip to the next country after 3 wrong guesses then uncomment this
-                
-                # if self.streak == 3:
-                #     self.streak = 0
-                #     # move onto the next country and update what country is shown
-                #     SA_Game.new_random_country(self)
-
 
             # if the user has guessed all of the countries then we get their name and log their score into the leaderboard
             if len(self.SA_countries) == 0:
 
                 # self.output passes the user's final time and the filepath will add the time to correct .csv file  
-                print("Final time - " + self.output)
-                
                 # Initializes GetNameView class and passes the final time and leaderboard file path, then shows the view for the leaderboard
                 view = GetNameView(self.output, "\\SA_leaderboard.csv")
                 self.window.show_view(view)
-
 
     # timer function
     def on_update(self, delta_time):

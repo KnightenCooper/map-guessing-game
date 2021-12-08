@@ -1,6 +1,4 @@
-"""
-Updated start_menu
-"""
+
 import arcade
 from pathlib import Path
 from constants import SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_TITLE
@@ -50,7 +48,6 @@ class StartMenu(arcade.View):
         self.button_sprite_list = None
         # set the background color
         arcade.set_background_color(arcade.color.BLACK)
-
 
     def setup(self):
         """ Set up the game here. Call this function to restart the game. """

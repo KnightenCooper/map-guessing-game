@@ -21,15 +21,15 @@ Other imports included:
 
 # Useful Websites
 
-{Make a list of websites that you found helpful in this project}
 * [Python 3 Documentation](https://docs.python.org/3/)
 * [The Python Arcade Library](https://api.arcade.academy/en/latest/)
 * [Pandas Documentation](https://pandas.pydata.org/docs/)
 
 # Future Work
 
-{Make a list of things that you need to fix, improve, and add in the future.}
 * Make the volume of the music adjustable
 * Add capital cities quiz
 * Color blind options that don't use red and green
 * Learning mode that tells you answer after 30 seconds
+* Only ask for name if user gets a highscore
+* Online version so you can compete with friend's highscores

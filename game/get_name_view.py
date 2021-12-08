@@ -9,6 +9,8 @@ import NA_Game
 
 # Creating MainGame class       
 class GetNameView(arcade.View):
+    """ creates the view that gets the user's name for the leaderboard """
+
     def __init__(self, time, filePath):
         self.output = ""
         self.time = time
@@ -36,7 +38,6 @@ class GetNameView(arcade.View):
         # add each letter as the user presses it
         for letter in alphabet:
             if symbol == letter:
-                print(chr(letter))
                 self.output = self.output + chr(letter)
 
         # remove the last letter if user hits backspace
@@ -59,7 +60,6 @@ class GetNameView(arcade.View):
                 with open(filename, 'a') as csvfile:
                     csvwriter = csv.writer(csvfile)
                     csvwriter.writerow(rows)
-                    print(rows)
 
                 #takes you to the leaderboard
                 instruction = LeaderView(self.filePath) 

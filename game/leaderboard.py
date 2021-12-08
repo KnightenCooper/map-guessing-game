@@ -21,11 +21,10 @@ class BackButton(arcade.Sprite):
 
 
 class LeaderView(arcade.View):
-    """ TESTING PURPOSES ONLY... this class creates a page that says 
-    Congrats! You've successfully reached the leaderboard page!!"""
+    """ create the leaderboard view that gets top ten fastest scores from .csv file"""
 
     def __init__(self, filePath):
-        """ TESTING PURPOSES ONLY...the class constructor.""" 
+        """ creates needed variables""" 
         
         self.filePath = filePath  
         super().__init__()
@@ -45,11 +44,11 @@ class LeaderView(arcade.View):
 
 
     def on_show(self):
-        """ TESTING PURPOSES ONLY...sets the background color of the instruction menu."""   
+        """sets the background color of the instruction menu."""   
         arcade.set_background_color(arcade.color.BLACK)
 
     def on_draw(self):
-        """TESTING PURPOSES ONLY... creates the view for the instruction menu."""
+        """ Creates the view for the instruction menu."""
         start_x = 50
         start_y = 400
         # Clear the screen
